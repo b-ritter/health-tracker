@@ -1,6 +1,5 @@
 var ref = new Firebase("https://br-health-tracker.firebaseio.com");
 
-
 var userExists = ref.getAuth();
 
 if(!userExists){

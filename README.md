@@ -24,7 +24,7 @@ user and the server.
 User data is persisted on a Firebase NoSQL server. The structure of the database
 is as follows:
 
-`Users
+<pre>Users
 |
 |---UserID 1
 |   |-----User name
@@ -46,6 +46,6 @@ Timelines
     |    |----Food Item
     |    |----Food Item
     |    |----Food Item
-    |----Day 2`
+    |----Day 2}</pre>
 
 Thus for each user, a list of food items ordered by day is stored.

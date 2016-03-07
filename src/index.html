@@ -17,7 +17,17 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Health Tracker</h1>
+    <div class="container tracker">
+      <div class="page-header">
+        <h1>Health Tracker</h1>
+      </div>
+    </div>
+    <script type="text/template" id="login">
+      <div>
+        <input id="todo_complete" type="checkbox" <%= completed ? 'checked="checked"' : '' %>>
+        <%= title %>
+      </div>
+    </script>
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/jquery-ui-1.9.2.custom.min.js"></script>
     <script src="js/lib/bootstrap.js"></script>
@@ -26,9 +36,9 @@
     <script src="js/lib/backbone-min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
-    <script src="js/models/day.js"></script>
+    <script src="js/models/user.js"></script>
     <script src="js/collections/days.js"></script>
-    <script src="js/views/day.js"></script>
+    <script src="js/views/login.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

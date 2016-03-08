@@ -12,11 +12,7 @@ app.HealthTrackerView = Backbone.View.extend({
     }
 
     this.listenTo(this.login, 'authenticated', this.renderTimeline);
-    // Fires for each model in collection and
-    // when a new model is added
-    this.listenTo(this.login.collection, 'add', this.checkUserLoggedIn);
-    // Fires once
-    this.listenTo(this.login.collection, 'sync', this.checkUserLoggedIn);
+
   },
   render: function(){
 
@@ -31,8 +27,5 @@ app.HealthTrackerView = Backbone.View.extend({
     //TODO: Create timeline
     this.login.$el.remove();
     this.$el.append("Timeline");
-  },
-  checkUserLoggedIn: function(){
-    console.log('foo');
   }
 });

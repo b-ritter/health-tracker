@@ -3,65 +3,55 @@ var app = app || {};
 app.LoginView = Backbone.View.extend({
   tag: 'div',
   loginTemplate: _.template($('.login-template').html()),
-  STATUS: {
-    newLogin: 'NEWLOGIN',
-    success: 'SUCCESS',
-    error: {
-      invalid: 'INVALID',
-      userExists: 'USEREXISTS'
-    }
-  },
-  state: null,
   events: {
     'submit form': 'addUser'
   },
-  userRef: null,
   initialize: function(){
     // Sets the state of the login
 
     // Returns null if user is not authenticated
+    // Catch authenticated users to bypass login screen
     var firebaseUrl = 'https://br-health-tracker.firebaseio.com';
     this.userRef = new Firebase(firebaseUrl);
-    var userAuth = this.userRef.getAuth();
 
-    console.log(userAuth);
+    // Sets up the Users collection
+    this.collection = new app.Users();
 
+    this.userAuth = this.userRef.getAuth();
+
+    //
     this.userRef.unauth();
 
-    if(userAuth === null){
-      this.model = new app.User();
-    }else {
-      this.model = new app.User({
-        id: userAuth.uid,
-        username: userAuth.username
-      });
-    }
-    this.render();
   },
   render: function(){
     this.$el.html(this.loginTemplate());
     return this;
   },
   addUser: function(){
-    var self = this;
-    var username = $('#userName', this.$el).val();
-    this.userRef.authAnonymously(function(error, authData) {
-      if (error) {
-        // Do I check for errors here or in the validation rules for the
-        // database?
-        console.log("Login Failed!", error);
-      } else {
-        // self.userRef.child("users").child(authData.uid).set({
-        //   provider: authData.provider,
-        //   username: username
-        // });
-        self.model.set({
-          id: authData.uid,
-          provider: authData.provider,
-          username: username
+    var self = this,
+    username = $('#userName', this.$el).val(),
+    usersRef = new Firebase(this.collection.url);
+
+    usersRef.child(username).transaction(function(currentUserData) {
+      if(currentUserData === null) {
+        self.userRef.authAnonymously(function(error, authData) {
+          self.collection.add({
+            id: username,
+            provider: authData.provider
+          });
         });
-        console.log("Authenticated successfully with payload:", authData);
+        self.trigger('authenticated');
+      } else {
+        // TODO: More elegant solution here
+        alert('Username "' + username +  '" already exists. Please try again.');
       }
     });
+  },
+  isAuthenticated: function(){
+    if( this.userAuth ){
+      return true;
+    } else {
+      return false;
+    }
   }
 });

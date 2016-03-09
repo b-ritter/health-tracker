@@ -3,6 +3,8 @@ var app = app || {};
 app.LoginView = Backbone.View.extend({
   tag: 'div',
   loginTemplate: _.template($('.login-template').html()),
+  collection: new app.Users(),
+  currentUser: new app.User(),
   events: {
     'submit form': 'addUser'
   },
@@ -11,16 +13,22 @@ app.LoginView = Backbone.View.extend({
 
     // Returns null if user is not authenticated
     // Catch authenticated users to bypass login screen
-    var firebaseUrl = 'https://br-health-tracker.firebaseio.com';
+    var self = this,
+    firebaseUrl = 'https://br-health-tracker.firebaseio.com';
     this.userRef = new Firebase(firebaseUrl);
-
-    // Sets up the Users collection
-    this.collection = new app.Users();
 
     this.userAuth = this.userRef.getAuth();
 
+    if(this.isAuthenticated()){
+      this.collection.on('sync', function(){
+        self.currentUser.set(self.collection.get(self.userAuth.uid));
+        self.trigger('authenticated');
+      });
+      // this.setUser();
+    }
     //
-    this.userRef.unauth();
+    // this.userRef.unauth();
+    // console.log(this.userAuth);
 
   },
   render: function(){
@@ -29,22 +37,14 @@ app.LoginView = Backbone.View.extend({
   },
   addUser: function(){
     var self = this,
-    username = $('#userName', this.$el).val(),
-    usersRef = new Firebase(this.collection.url);
-
-    usersRef.child(username).transaction(function(currentUserData) {
-      if(currentUserData === null) {
-        self.userRef.authAnonymously(function(error, authData) {
-          self.collection.add({
-            id: username,
-            provider: authData.provider
-          });
-        });
-        self.trigger('authenticated');
-      } else {
-        // TODO: More elegant solution here
-        alert('Username "' + username +  '" already exists. Please try again.');
-      }
+    username = $('#userName', this.$el).val();
+    self.userRef.authAnonymously(function(error, authData) {
+      self.collection.add({
+        id: authData.uid,
+        username: username,
+        provider: authData.provider
+      });
+      self.trigger('authenticated');
     });
   },
   isAuthenticated: function(){
@@ -53,5 +53,8 @@ app.LoginView = Backbone.View.extend({
     } else {
       return false;
     }
+  },
+  setUser: function(user){
+
   }
 });

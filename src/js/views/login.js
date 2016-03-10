@@ -6,7 +6,7 @@ app.LoginView = Backbone.View.extend({
   collection: new app.Users(),
   currentUser: new app.User(),
   events: {
-    'submit form': 'addUser'
+    'submit form': 'addUser',
   },
   initialize: function(){
     // Sets the state of the login
@@ -24,11 +24,11 @@ app.LoginView = Backbone.View.extend({
         self.currentUser.set(self.collection.get(self.userAuth.uid));
         self.trigger('authenticated');
       });
-      // this.setUser();
-    }
+    } 
+
     //
     // this.userRef.unauth();
-    // console.log(this.userAuth);
+    console.log(this.userAuth);
 
   },
   render: function(){
@@ -44,8 +44,13 @@ app.LoginView = Backbone.View.extend({
         username: username,
         provider: authData.provider
       });
+      self.currentUser.set(self.collection.get(authData.uid));
       self.trigger('authenticated');
     });
+  },
+  setUser: function(){
+
+
   },
   isAuthenticated: function(){
     if( this.userAuth ){
@@ -53,8 +58,5 @@ app.LoginView = Backbone.View.extend({
     } else {
       return false;
     }
-  },
-  setUser: function(user){
-
   }
 });

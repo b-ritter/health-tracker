@@ -1,6 +1,7 @@
 var app = app || {};
 
 app.UserTimelineView = Backbone.View.extend({
+  el: '.user-timeline',
   userTemplate: _.template($('.user-template').html()),
   initialize: function(){
 

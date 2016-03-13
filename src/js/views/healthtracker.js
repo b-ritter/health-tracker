@@ -7,17 +7,20 @@ app.HealthTrackerView = Backbone.View.extend({
   loader: $($('.loader').html()),
   userTimeline: new app.UserTimelineView(),
   initialize: function(){
-    this.$el.append(this.loader);
+
     this.listenTo(this.login, 'authenticated', this.renderUser);
     if(!this.login.isAuthenticated()){
       this.renderLogin();
+    } else {
+      this.$el.append(this.loader);
     }
   },
   render: function(){
 
   },
   renderLogin: function(){
-    this.$el.append(this.login.render().el);
+    // this.loader.remove();
+    this.login.$el.append(this.login.render().el);
   },
   renderSearch: function(){
     //TODO: Create nutrition search
@@ -28,6 +31,6 @@ app.HealthTrackerView = Backbone.View.extend({
   renderUser: function(){
     this.loader.remove();
     this.login.$el.remove();
-    this.$el.append(this.userTimeline.render(this.login.currentUser.attributes.toJSON()).el);
+    this.userTimeline.$el.append(this.userTimeline.render(this.login.currentUser.attributes.toJSON()).el);
   }
 });

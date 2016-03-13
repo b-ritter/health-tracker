@@ -1,7 +1,7 @@
 var app = app || {};
 
 app.LoginView = Backbone.View.extend({
-  tag: 'div',
+  el: '.login-form',
   loginTemplate: _.template($('.login-template').html()),
   collection: new app.Users(),
   currentUser: new app.User(),
@@ -32,7 +32,7 @@ app.LoginView = Backbone.View.extend({
 
   },
   render: function(){
-    this.$el.html(this.loginTemplate());
+    this.$el.append(this.loginTemplate());
     return this;
   },
   addUser: function(){

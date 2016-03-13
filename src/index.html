@@ -17,21 +17,39 @@
     <![endif]-->
   </head>
   <body>
-    <div class="container tracker">
-      <div class="page-header">
-        <h1>Health Tracker</h1>
-      </div>
+    <div class="container-fluid tracker">
+      <header class="row page-header">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+          <h1>Health Tracker</h1>
+        </div>
+        <div class="col-xs-1"></div>
+      </header>
+      <section class="row login-form">
+        <!--Container for Login View -->
+      </section>
+      <section class="row user-timeline">
+
+      </section>
     </div>
     <script type="text/template" class="login-template">
-      <div>
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10 ">
         <form class="form-signin" action="#">
           <input type="text" id="userName" class="form-control" placeholder="Create User Name" required autofocus>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
         </form>
       </div>
+      <div class="col-xs-1"></div>
+
     </script>
     <script type="text/template" class="user-template">
-      <p>Welcome to health tracker <strong><%= username %></strong> !</p>
+      <div class="col-xs-6 user-info">
+        <p>Welcome to health tracker <strong><%= username %></strong> !</p>
+      </div>
+      <div class="col-xs-6">
+      </div>
+
     </script>
     <script type="text/template" class="timeline-template">
     </script>

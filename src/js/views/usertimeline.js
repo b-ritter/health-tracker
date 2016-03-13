@@ -1,13 +1,16 @@
 var app = app || {};
 
 app.UserTimelineView = Backbone.View.extend({
-  el: '.user-timeline',
+  el: '.ht-user-timeline',
+  menu: new app.MenuView(),
   userTemplate: _.template($('.user-template').html()),
   initialize: function(){
-
+    //
   },
   render: function(userAttributes){
-    this.$el.html(this.userTemplate({ username: userAttributes.username }));
+    this.$el.append(this.menu.render().el);
+    this.$el.append(this.userTemplate({ username: userAttributes.username }));
+
     return this;
   }
 });

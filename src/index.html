@@ -17,7 +17,7 @@
     <![endif]-->
   </head>
   <body>
-    <div class="container-fluid tracker">
+    <div class="container-fluid ht-app">
       <header class="row page-header">
         <div class="col-xs-1"></div>
         <div class="col-xs-10">
@@ -25,11 +25,13 @@
         </div>
         <div class="col-xs-1"></div>
       </header>
-      <section class="row login-form">
+      <section class="row ht-login-form">
         <!--Container for Login View -->
       </section>
-      <section class="row user-timeline">
-
+      <section class="row ht-user-timeline">
+        <!--Container for User Timeline View -->
+        <nav class="row ht-menu">
+        </nav>
       </section>
     </div>
     <script type="text/template" class="login-template">
@@ -41,7 +43,6 @@
         </form>
       </div>
       <div class="col-xs-1"></div>
-
     </script>
     <script type="text/template" class="user-template">
       <div class="col-xs-6 user-info">
@@ -49,12 +50,16 @@
       </div>
       <div class="col-xs-6">
       </div>
-
     </script>
     <script type="text/template" class="timeline-template">
     </script>
-    <script type="text/template" class="loader">
+    <script type="text/template" class="loader-template">
       <p>Loading...</p>
+    </script>
+    <script type="text/template" class="menu-template">
+      <button class="col-xs-4">Daily</button>
+      <button class="col-xs-4">Weekly</button>
+      <button class="col-xs-4">Monthly</button>
     </script>
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/jquery-ui.min.js"></script>
@@ -67,9 +72,13 @@
     <script src="js/models/user.js"></script>
     <script src="js/collections/users.js"></script>
     <script src="js/collections/days.js"></script>
+
+    <script src="js/views/menu.js"></script>
     <script src="js/views/login.js"></script>
+
     <script src="js/views/usertimeline.js"></script>
     <script src="js/views/healthtracker.js"></script>
+
     <script src="js/app.js"></script>
     <script>
       $.ajax('https://api.nutritionix.com/v1_1/search/cheddar%20cheese?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=c14fb9cf&appKey=3f6a283cc964fd8cc103300670fd3234', {datatype: 'jsonp'})

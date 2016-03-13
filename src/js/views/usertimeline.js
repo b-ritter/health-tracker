@@ -6,7 +6,6 @@ app.UserTimelineView = Backbone.View.extend({
 
   },
   render: function(userAttributes){
-    // console.log(userAttributes.username);
     this.$el.html(this.userTemplate({ username: userAttributes.username }));
     return this;
   }

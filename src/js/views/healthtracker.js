@@ -28,9 +28,6 @@ app.HealthTrackerView = Backbone.View.extend({
   renderUser: function(){
     this.loader.remove();
     this.login.$el.remove();
-    // console.log(this.login.currentUser.attributes.toJSON());
-    // this.userTimeline.userTemplate(this.login.currentUser.attributes.toJSON());
-    // console.log(this.userTimeline.userTemplate({username: 'foo'}));
     this.$el.append(this.userTimeline.render(this.login.currentUser.attributes.toJSON()).el);
   }
 });

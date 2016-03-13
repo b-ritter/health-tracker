@@ -24,11 +24,11 @@ app.LoginView = Backbone.View.extend({
         self.currentUser.set(self.collection.get(self.userAuth.uid));
         self.trigger('authenticated');
       });
-    } 
+    }
 
     //
     // this.userRef.unauth();
-    console.log(this.userAuth);
+    // console.log(this.userAuth);
 
   },
   render: function(){

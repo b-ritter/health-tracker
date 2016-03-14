@@ -34,8 +34,15 @@
         </div>
         <nav class="ht-menu" role="navigation">
         </nav>
+        <div class="ht-timeline-container">
+        </div>
       </section>
     </div>
+    <!--
+
+      JS Templates
+
+    -->
     <script type="text/template" class="login-template">
       <div class="col-xs-1"></div>
       <div class="col-xs-10 ">
@@ -46,6 +53,7 @@
       </div>
       <div class="col-xs-1"></div>
     </script>
+
     <script type="text/template" class="user-template">
         <div class="col-xs-6">
           <p>Welcome to health tracker <strong><%= username %></strong> !</p>
@@ -54,11 +62,14 @@
           <button class="btn btn-default edit-user" type="submit">Edit Username</button>
         </div>
     </script>
+
     <script type="text/template" class="timeline-template">
     </script>
+
     <script type="text/template" class="loader-template">
       <p>Loading...</p>
     </script>
+
     <script type="text/template" class="menu-template">
       <ul class="nav nav-pills nav-justified">
         <li role="presentation" data-toggle="pill" class="daily"><a href="#">Daily</a></li>
@@ -66,6 +77,18 @@
         <li role="presentation" data-toggle="pill" class="monthly"><a href="#">Monthly</a></li>
       </ul>
     </script>
+
+    <script type="text/template" class="day-template">
+      <section class="row">
+        <div class="col-xs-12">
+          <h3 class="text-center"><%= day %></h3>
+        </div>
+        <button class="btn btn-default btn-block add-day" type="submit">Add Day</button>
+      </section>
+    </script>
+    <!--
+      js Dependencies
+    -->
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/jquery-ui.min.js"></script>
     <script src="js/lib/bootstrap.js"></script>
@@ -77,7 +100,7 @@
     <script src="js/models/user.js"></script>
     <script src="js/collections/users.js"></script>
     <script src="js/collections/days.js"></script>
-
+    <script src="js/views/day.js"></script>
     <script src="js/views/menu.js"></script>
     <script src="js/views/login.js"></script>
 

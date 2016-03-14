@@ -2,18 +2,26 @@ var app = app || {};
 
 app.DayView = Backbone.View.extend({
   el: '.ht-timeline-container',
-  day: {day: 'April 1, 2016'},
+  defaults: {
+    item: null,
+    day: moment().format('dddd, MMMM Do YYYY')
+  },
+  model: null,
   dayTemplate: _.template($('.day-template').html()),
   events: {
-    'click .add-day': 'addDay'
+    'click .add-day': 'addDay',
+    'click .add-item': 'addItem'
   },
   initialize: function(){
     // Get latest day
   },
   render: function(){
-    return this.dayTemplate( this.day );
+    return this.dayTemplate( this.model || this.defaults );
   },
   addDay: function(){
     console.log('add a day');
+  },
+  addItem: function(){
+    console.log('add item');
   }
 });

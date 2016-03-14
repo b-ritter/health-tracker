@@ -12,8 +12,8 @@ app.DayView = Backbone.View.extend({
     'click .add-day': 'addDay',
     'click .add-item': 'addItem'
   },
-  initialize: function(){
-    // Get latest day
+  initialize: function(options){
+    this.parent = options.parent;
   },
   render: function(){
     return this.dayTemplate( this.model || this.defaults );

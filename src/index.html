@@ -80,20 +80,29 @@
 
     <script type="text/template" class="day-template">
       <section class="row">
-        <div class="col-xs-12 text-center">
+        <div class="col-xs-1 col-sm-4"></div>
+        <div class="col-xs-10 col-sm-4 text-center">
           <h3><%= day %></h3>
           <% if(item === null) {%>
-            <input class="text-left" value="What did you eat today?"></input><button class="btn-default add-item">Add Item</button>
+            <form>
+              <div class="input-group">
+                <input class="form-control" placeholder="What did you eat today?"></input>
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default add-item">Add Item</button>
+                </span>
+              </div>
+            </form>
           <% }%>
         </div>
-        <div class="row">
-          <div class="col-xs-2 col-sm-4 col-md-5"></div>
-          <div class="col-xs-8 col-sm-4 col-md-2">
-              <button class="btn btn-default btn-block add-day" type="submit">Add Day</button>
-          </div>
-          <div class="col-xs-2 col-sm-4 col-md-5"></div>
-        </div>
+        <div class="col-xs-1 col-sm-4"></div>
       </section>
+      <div class="row">
+        <div class="col-xs-2 col-sm-4 col-md-5"></div>
+        <div class="col-xs-8 col-sm-4 col-md-2">
+            <button class="btn btn-default btn-block add-day" type="submit">Add Day</button>
+        </div>
+        <div class="col-xs-2 col-sm-4 col-md-5"></div>
+      </div>
     </script>
 
     <script type="text/template" class="weekly-template">

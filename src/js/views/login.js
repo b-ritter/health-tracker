@@ -27,7 +27,6 @@ app.LoginView = Backbone.View.extend({
 
     //
     // this.userRef.unauth();
-    // console.log(this.userAuth);
 
   },
   render: function(){

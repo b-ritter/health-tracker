@@ -5,8 +5,8 @@ app.HealthTrackerView = Backbone.View.extend({
   el: $('.ht-app'),
   login: new app.LoginView(),
   loader: $($('.loader-template').html()),
-  userTimeline: new app.UserTimelineView(),
   initialize: function(){
+    this.userTimeline = new app.UserTimelineView({ parent: this });
     this.listenTo(this.login, 'authenticated', this.renderUser);
     if(!this.login.isAuthenticated()){
       this.renderLogin();

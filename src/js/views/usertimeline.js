@@ -3,11 +3,13 @@ var app = app || {};
 app.UserTimelineView = Backbone.View.extend({
   el: '.ht-user-timeline',
   $timelineContainer: null,
+  currentUserId: null,
   currentTimeline: 'daily',
   menu: new app.MenuView(),
-  day: new app.DayView(),
-  weekly: new app.WeeklyView(),
-  monthly: new app.MonthlyView(),
+  day: new app.DayView({ parent: this }),
+  weekly: new app.WeeklyView({ parent: this }),
+  monthly: new app.MonthlyView({ parent: this }),
+  collection: new app.Days(),
   userTemplate: _.template($('.user-template').html()),
   events: {
     'click .edit-user': 'editUser',
@@ -15,7 +17,9 @@ app.UserTimelineView = Backbone.View.extend({
     'click .weekly': 'setCurrentTimeline',
     'click .monthly': 'setCurrentTimeline',
   },
-  initialize: function(){
+  initialize: function(options){
+    this.parent = options.parent;
+    this.currentUserId = this.parent.login.userAuth.uid;
     this.$timelineContaner = this.$el.find('.ht-timeline-container');
   },
   render: function(userAttributes){

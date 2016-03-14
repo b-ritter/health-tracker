@@ -10,7 +10,6 @@ app.LoginView = Backbone.View.extend({
   },
   initialize: function(){
     // Sets the state of the login
-
     // Returns null if user is not authenticated
     // Catch authenticated users to bypass login screen
     var self = this,

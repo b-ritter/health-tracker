@@ -6,7 +6,6 @@ app.DayView = Backbone.View.extend({
     item: null,
     day: moment().format('dddd, MMMM Do YYYY')
   },
-  model: null,
   dayTemplate: _.template($('.day-template').html()),
   events: {
     'click .add-day': 'addDay',
@@ -19,9 +18,15 @@ app.DayView = Backbone.View.extend({
     return this.dayTemplate( this.model || this.defaults );
   },
   addDay: function(){
-    console.log('add a day');
+    // console.log(this.parent.collection.url);
+    this.parent.collection.add({
+      foo: 'bar'
+    });
   },
   addItem: function(){
-    console.log('add item');
+    console.log(this.parent.collection.model);
+    // this.parent.collection.add({
+    //   foo: 'bar'
+    // });
   }
 });

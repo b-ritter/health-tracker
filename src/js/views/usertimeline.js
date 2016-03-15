@@ -3,13 +3,8 @@ var app = app || {};
 app.UserTimelineView = Backbone.View.extend({
   el: '.ht-user-timeline',
   $timelineContainer: null,
-  currentUserId: null,
   currentTimeline: 'daily',
   menu: new app.MenuView(),
-  day: new app.DayView({ parent: this }),
-  weekly: new app.WeeklyView({ parent: this }),
-  monthly: new app.MonthlyView({ parent: this }),
-  collection: new app.Days(),
   userTemplate: _.template($('.user-template').html()),
   events: {
     'click .edit-user': 'editUser',
@@ -20,12 +15,19 @@ app.UserTimelineView = Backbone.View.extend({
   initialize: function(options){
     this.parent = options.parent;
     this.currentUserId = this.parent.login.userAuth.uid;
+    this.collection = new app.Days( null, { uid: this.currentUserId });
+    this.day = new app.DayView({ parent: this });
+    this.weekly = new app.WeeklyView({ parent: this });
+    this.monthly = new app.MonthlyView({ parent: this });
     this.$timelineContaner = this.$el.find('.ht-timeline-container');
   },
   render: function(userAttributes){
+    var self = this;
     this.$el.find('.ht-usercontrol').append(this.userTemplate({ username: userAttributes.username }));
     this.$el.find('.ht-menu').append(this.menu.render().el);
-    this.showTimeline(this.currentTimeline);
+    this.collection.on('sync', function(){
+      self.showTimeline(self.currentTimeline);
+    });
     return this;
   },
   editUser: function(){

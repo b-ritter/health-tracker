@@ -18,9 +18,11 @@ app.DayView = Backbone.View.extend({
     return this.dayTemplate( this.model || this.defaults );
   },
   addDay: function(){
-    // console.log(this.parent.collection.url);
+    // var m = moment().format('YYYY-MM-D');
+    // console.log(m);
+    // console.log(moment(m, 'YYYY-MM-D').format('dddd, MMMM D YYYY'));
     this.parent.collection.add({
-      foo: 'bar'
+      id: moment().format('YYYY-MM-D')
     });
   },
   addItem: function(){

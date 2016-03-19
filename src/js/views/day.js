@@ -2,11 +2,11 @@ var app = app || {};
 
 app.DayView = Backbone.View.extend({
   el: '.ht-timeline-container',
-  defaults: {
-    item: null,
-    day: moment().format('dddd, MMMM Do YYYY')
-  },
   dayTemplate: _.template($('.day-template').html()),
+  defaults: {
+    day: moment().format('dddd, MMMM D YYYY'),
+    item: null
+  },
   events: {
     'click .add-day': 'addDay',
     'click .add-item': 'addItem'
@@ -26,9 +26,10 @@ app.DayView = Backbone.View.extend({
     });
   },
   addItem: function(){
-    console.log(this.parent.collection.model);
-    // this.parent.collection.add({
-    //   foo: 'bar'
-    // });
+    // console.log(this.parent.collection.model);
+    this.parent.collection.add({
+      id: moment().format('YYYY-MM-D'),
+      food: ['juice']
+    });
   }
 });

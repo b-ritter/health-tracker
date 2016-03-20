@@ -84,10 +84,19 @@
         <div class="col-xs-10 col-sm-4 text-center">
           <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3>
           <div class="item-list">
+             <form action="#">
+              <div class="input-group">
+                <input class="form-control" placeholder="What did you eat today?"></input>
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default add-item">Add Item</button>
+                </span>
+              </div>
+            </form>
           </div>
         </div>
         <div class="col-xs-1 col-sm-4"></div>
       </section>
+
       <div class="row">
         <div class="col-xs-2 col-sm-4 col-md-5"></div>
         <div class="col-xs-8 col-sm-4 col-md-2">
@@ -98,14 +107,7 @@
     </script>
 
     <script  type="text/template" class="item-template">
-      <form>
-        <div class="input-group">
-          <input class="form-control" placeholder="What did you eat today?"></input>
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-default add-item">Add Item</button>
-          </span>
-        </div>
-      </form>
+      
     </script>
 
     <script type="text/template" class="weekly-template">
@@ -128,6 +130,7 @@
     <script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
     <script src="js/models/user.js"></script>
     <script src="js/models/day.js"></script>
+    <script src="js/models/item.js"></script>
     <script src="js/collections/users.js"></script>
     <script src="js/collections/days.js"></script>
     <script src="js/views/daily.js"></script>

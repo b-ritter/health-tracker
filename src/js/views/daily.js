@@ -4,14 +4,14 @@ app.DailyView = Backbone.View.extend({
   el: '.ht-timeline-container',
   days: [],
   events: {
-    'click .add-day': 'addDay',
-    'click .add-item': 'addItem'
+    'click .add-day': 'addDay'
   },
   initialize: function(options){
     var self = this;
     this.parent = options.parent;
-    this.parent.collection.on('sync', function(){
+    this.parent.collection.once('sync', function(){
       self.parent.collection.each(function(day){
+        day.attributes.parent = self;
         self.days.push(new app.DayView(day.attributes));
       });
       self.render();
@@ -27,13 +27,6 @@ app.DailyView = Backbone.View.extend({
   addDay: function(){
     this.parent.collection.add({
       id: moment().format('YYYY-MM-D')
-    });
-  },
-  addItem: function(){
-    // console.log(this.parent.collection.model);
-    this.parent.collection.add({
-      id: moment().format('YYYY-MM-D'),
-      food: ['juice']
     });
   }
 });

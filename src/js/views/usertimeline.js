@@ -47,7 +47,7 @@ app.UserTimelineView = Backbone.View.extend({
         content = this.monthly.render();
         break;
     }
-    this.$timelineContaner.append(content);
+    this.$timelineContaner.html(content);
   },
   setCurrentTimeline: function(timeframe){
     this.currentTimeline = timeframe;

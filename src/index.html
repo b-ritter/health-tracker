@@ -18,14 +18,7 @@
   </head>
   <body>
     <div class="container-fluid ht-app">
-      <header class="row page-header">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-10">
-          <h1 class="text-center">Health Tracker</h1>
-        </div>
-        <div class="col-xs-1"></div>
-      </header>
-      <section class="row ht-login-form">
+      <section class="ht-login-form">
         <!--Container for Login View -->
       </section>
       <section class="row ht-user-timeline">
@@ -44,14 +37,23 @@
 
     -->
     <script type="text/template" class="login-template">
-      <div class="col-xs-1"></div>
-      <div class="col-xs-10 ">
-        <form class="form-signin" action="#">
-          <input type="text" id="userName" class="form-control" placeholder="Create User Name" required autofocus>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
-        </form>
+      <header class="row page-header">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+          <h1 class="text-center">Health Tracker</h1>
+        </div>
+        <div class="col-xs-1"></div>
+      </header>
+      <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10 ">
+          <form class="form-signin" action="#">
+            <input type="text" id="userName" class="form-control" placeholder="Create User Name" required autofocus>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
+          </form>
+        </div>
+        <div class="col-xs-1"></div>
       </div>
-      <div class="col-xs-1"></div>
     </script>
 
     <script type="text/template" class="user-template">
@@ -78,6 +80,20 @@
       </ul>
     </script>
 
+    <script type="text/template" class="daily-template">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-2 col-sm-4 col-md-5"></div>
+            <div class="col-xs-8 col-sm-4 col-md-2">
+                <button class="btn btn-default btn-block add-day" type="submit">Add Day</button>
+            </div>
+            <div class="col-xs-2 col-sm-4 col-md-5"></div>
+          </div>
+        </div>
+      </nav>
+    </script>
+
     <script type="text/template" class="day-template">
       <section class="row">
         <div class="col-xs-1 col-sm-4"></div>
@@ -94,23 +110,16 @@
         </div>
         <div class="col-xs-1 col-sm-4"></div>
       </section>
-
-      <div class="row">
-        <div class="col-xs-2 col-sm-4 col-md-5"></div>
-        <div class="col-xs-8 col-sm-4 col-md-2">
-            <button class="btn btn-default btn-block add-day" type="submit">Add Day</button>
-        </div>
-        <div class="col-xs-2 col-sm-4 col-md-5"></div>
-      </div>
     </script>
 
     <script  type="text/template" class="item-template">
     
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search for..." style="display:none">
-        <span><%= itemName %></span><span> <%= calories %></span>
+        <div class="form-control">
+          <span><%= itemName %></span><span> <%= calories %></span>
+        </div>
         <span class="input-group-btn">
-          <button class="btn btn-default edit" type="button">Edit</button>
           <button class="btn btn-default delete" type="button">Delete</button>
         </span>
       </div><!-- /input-group -->

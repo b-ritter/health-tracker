@@ -42,7 +42,6 @@ app.DayView = Backbone.View.extend({
   },
   addItem: function(){
     var self = this;
-    // alert('foo');
     var foodItem = this.$itemInput.val();
     this.collection.create({ 
       itemName: foodItem, 

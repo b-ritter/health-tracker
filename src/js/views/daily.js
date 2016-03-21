@@ -2,11 +2,14 @@ var app = app || {};
 
 app.DailyView = Backbone.View.extend({
   el: '.ht-timeline-container',
+  dailyTemplate: _.template($('.daily-template').html()),
   events: {
     'click .add-day': 'addDay'
   },
   initialize: function(options){
     var self = this;
+
+    this.$addDayBtn = this.dailyTemplate();
 
     this.parent = options.parent;
 
@@ -15,16 +18,11 @@ app.DailyView = Backbone.View.extend({
     this.listenTo(this.parent.collection, 'add', this.renderDay);
     
     this.listenTo(this.parent.collection, 'reset', this.render);
-    // this.parent.collection.once('sync', function(){
-    //   self.parent.collection.each(function(day){
-    //     day.attributes.parent = self;
-    //     self.days.push(new app.DayView(day.attributes));
-    //   });
-    //   self.render();
-    // });
+
   },
 
   render: function(){
+    this.$el.html(this.$addDayBtn);
     this.parent.collection.each(function(day){
       this.renderDay(day);
     }, this);
@@ -32,11 +30,6 @@ app.DailyView = Backbone.View.extend({
 
   renderDay: function(day){
     var dayView = new app.DayView( { model: day, parent: this } );
-    // var self = this;
-    // self.$el.html('');
-    // _.each(this.days, function(day){
-    //   self.$el.append(day.render().el);
-    // });
     this.$el.append(dayView.render().el);
   },
 

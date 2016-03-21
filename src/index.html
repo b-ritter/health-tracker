@@ -84,14 +84,12 @@
         <div class="col-xs-10 col-sm-4 text-center">
           <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3>
           <div class="item-list">
-             
               <div class="input-group">
                 <input class="form-control" placeholder="What did you eat today?"></input>
                 <span class="input-group-btn">
                   <button type="submit" class="btn btn-default add-item">Add Item</button>
                 </span>
               </div>
-           
           </div>
         </div>
         <div class="col-xs-1 col-sm-4"></div>
@@ -107,7 +105,15 @@
     </script>
 
     <script  type="text/template" class="item-template">
-      <span><%= itemName %></span><span> <%= calories %></span>
+    
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for..." style="display:none">
+        <span><%= itemName %></span><span> <%= calories %></span>
+        <span class="input-group-btn">
+          <button class="btn btn-default edit" type="button">Edit</button>
+          <button class="btn btn-default delete" type="button">Delete</button>
+        </span>
+      </div><!-- /input-group -->
     </script>
 
     <script type="text/template" class="weekly-template">

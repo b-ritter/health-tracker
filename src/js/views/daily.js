@@ -31,11 +31,6 @@ app.DailyView = Backbone.View.extend({
   renderDay: function(day){
     var dayView = new app.DayView( { model: day, parent: this } );
     this.$el.append(dayView.render().el);
-  },
-
-  addDay: function(){
-    this.parent.collection.add({
-      id: moment().format('YYYY-MM-D')
-    });
   }
+
 });

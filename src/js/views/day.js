@@ -16,7 +16,7 @@ app.DayView = Backbone.View.extend({
     
     this.$el.html(this.dayTemplate(this.model.attributes));
 
-    this.$itemInput = this.$el.find('.form-control');
+    this.$itemInput = this.$el.find('.ht-item');
 
     this.$itemDisplay = this.$el.find('.item-list');
 

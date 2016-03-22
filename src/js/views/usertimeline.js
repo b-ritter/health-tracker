@@ -23,7 +23,7 @@ app.UserTimelineView = Backbone.View.extend({
   render: function(userAttributes){
     var self = this;
     this.$el.find('.ht-usercontrol').append(this.userTemplate({ username: userAttributes.username }));
-    this.$el.find('.ht-menu').append(this.menu.render().el);
+    this.$el.find('#ht-main-menu').append(this.menu.render().el);
     this.collection.on('sync', function(){
       self.showTimeline(self.currentTimeline);
     });
@@ -48,7 +48,7 @@ app.UserTimelineView = Backbone.View.extend({
     }
     this.$timelineContaner.html(content);
   },
-  
+
   setCurrentTimeline: function(timeframe){
     this.currentTimeline = timeframe;
     this.showTimeline(this.currentTimeline);

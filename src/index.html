@@ -6,28 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Health Tracker</title>
     <link rel="stylesheet" href="css/foundation.css" />
+    <style>
+      main {
+        height: 90vh;
+        overflow: scroll;
+      }
+
+      .footer {
+        height: 10vh;
+      }
+
+      /* Foundation Medium and up */ 
+      @media screen and (min-width: 40em) {
+
+        main {
+          height: 100vh;
+        }
+
+        footer {
+          display: none;
+        }
+      }
+      
+    </style>
   </head>
   <body>
-    <div class="container-fluid ht-app">
-      <section class="ht-login-form">
-        <!--Container for Login View -->
-      </section>
-      <section class="row ht-user-timeline">
-        <!--Container for User Timeline View -->
-        <div class="row ht-usercontrol">
-        </div>
-        <nav>
-          <div class="title-bar" data-responsive-toggle="ht-main-menu" data-hide-for="medium">
-            <button class="menu-icon" type="button" data-toggle></button>
-            <div class="title-bar-title">Health Tracker</div>
-          </div>
-          <div class="top-bar" id="ht-main-menu">
-          </div>
-        </nav>
-        <div class="ht-timeline-container">
-        </div>
-      </section>
+   <main>
+    <div class="row ht-login-form">
+      <!--Container for Login View -->
     </div>
+    <div class="row ht-user-timeline">
+      <!--Container for User Timeline View -->
+      <nav>
+        <div class="title-bar" data-responsive-toggle="ht-main-menu" data-hide-for="medium">
+          <button class="menu-icon" type="button" data-toggle></button>
+          <div class="title-bar-title">Health Tracker</div>
+        </div>
+        <div class="top-bar" id="ht-main-menu">
+        </div>
+      </nav>
+      <div class="ht-timeline-container">
+      </div>
+    </div>
+    </main>
+    <footer class="footer hide-for-medium">
+      
+    </footer>
+
     <!--
 
       JS Templates
@@ -54,12 +79,12 @@
     </script>
 
     <script type="text/template" class="user-template">
-        <div class="small-6 columns">
-          <p>Welcome to health tracker <strong><%= username %></strong> !</p>
+        <div class="top-bar-right">
+          <ul class="menu">
+            <li>Welcome to health tracker <strong><%= username %></strong> !</li>
+          </ul>
         </div>
-        <div class="small-6 columns text-right">
-          <button class="button edit-user" type="submit">Edit Username</button>
-        </div>
+        
     </script>
 
     <script type="text/template" class="timeline-template">
@@ -70,12 +95,20 @@
     </script>
 
     <script type="text/template" class="menu-template">
-      <div class="top-bar-left">
-        <ul class="menu ht-menu">
-          <li role="presentation" data-toggle="pill" class="daily"><a href="#">Daily</a></li>
-          <li role="presentation" data-toggle="pill" class="weekly"><a href="#">Weekly</a></li>
-          <li role="presentation" data-toggle="pill" class="monthly"><a href="#">Monthly</a></li>
-        </ul>
+        <div class="top-bar-left show-for-medium">
+          <ul class="menu ht-menu">
+            <li class="daily"><a href="#">Daily</a></li>
+            <li class="weekly"><a href="#">Weekly</a></li>
+            <li class="monthly"><a href="#">Monthly</a></li>
+          </ul>
+      </div>
+    </script>
+  
+    <script type="text/template" class="bottom-bar-template">
+      <div class="button-group expanded">
+        <button class="button">Daily</button>
+        <button class="button">Weekly</button>
+        <button class="button">Monthly</button>
       </div>
     </script>
 
@@ -114,12 +147,11 @@
     
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search for..." style="display:none">
-        <div class="form-control">
-          <span><%= itemName %></span><span> <%= calories %></span>
-        </div>
-        <span class="input-group-btn">
-          <button class="btn btn-default delete" type="button">Delete</button>
+        <div>
+          <span><%= itemName %></span><span> <%= calories %></span><span class="input-group-btn">
+          <button class="button delete" type="button">Delete</button>
         </span>
+        </div>
       </div><!-- /input-group -->
     </script>
 
@@ -149,6 +181,7 @@
     <script src="js/collections/days.js"></script>
     <script src="js/collections/items.js"></script>
     <script src="js/views/daily.js"></script>
+    <script src="js/views/user.js"></script>
     <script src="js/views/day.js"></script>
     <script src="js/views/weekly.js"></script>
     <script src="js/views/monthly.js"></script>

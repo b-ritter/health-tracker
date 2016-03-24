@@ -4,7 +4,6 @@ app.LoginView = Backbone.View.extend({
   el: '.ht-login-form',
   loginTemplate: _.template($('.login-template').html()),
   collection: new app.Users(),
-  currentUser: new app.User(),
   events: {
     'submit form': 'addUser',
   },
@@ -25,6 +24,7 @@ app.LoginView = Backbone.View.extend({
       });
     }
 
+    this.listenTo( this.collection, 'add', renderUser );
     //
     // this.userRef.unauth();
 
@@ -33,11 +33,16 @@ app.LoginView = Backbone.View.extend({
     this.$el.append(this.loginTemplate());
     return this;
   },
+  renderUser: function(user){
+    var currentUser = new app.UserView({
+      model: user
+    });
+  },
   addUser: function(){
     var self = this,
     username = $('#userName', this.$el).val();
     self.userRef.authAnonymously(function(error, authData) {
-      self.collection.add({
+      self.collection.create({
         id: authData.uid,
         username: username,
         provider: authData.provider
@@ -45,10 +50,6 @@ app.LoginView = Backbone.View.extend({
       self.currentUser.set(self.collection.get(authData.uid));
       self.trigger('authenticated');
     });
-  },
-  setUser: function(){
-
-
   },
   isAuthenticated: function(){
     if( this.userAuth ){

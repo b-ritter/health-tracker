@@ -37,20 +37,12 @@ app.UserTimelineView = Backbone.View.extend({
     return this;
   },
 
-  renderUser: function() {
-
-    var currentUserView = new app.UserView({
-      model: this.parent.login.currentUser
-    });
-
-    console.log(currentUserView.render().el);
-  },
-
   showTimeline: function(event){
     var timeframe = $(event.currentTarget).attr('class');
     var content;
     switch(timeframe){
       case 'daily':
+        console.log('daily');
         content = this.daily.render();
         break;
       case 'weekly':

@@ -40,5 +40,11 @@ app.HealthTrackerView = Backbone.View.extend({
     this.login.$el.remove();
     this.userTimeline = new app.UserTimelineView({ parent: this });
     this.userTimeline.$el.append(this.userTimeline.render(this.login.currentUser).el);
+  }, 
+
+  renderInterface: function(){
+    // Insert timeline controls in menu and footer
   }
+
+
 });

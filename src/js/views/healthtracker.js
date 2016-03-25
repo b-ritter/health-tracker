@@ -2,7 +2,14 @@ var app = app || {};
 
 app.HealthTrackerView = Backbone.View.extend({
   // The main app view
+  el: '.ht-app',
   loader: $($('.loader-template').html()),
+  events: {
+    'click .edit-user': 'editUser',
+    'click .daily': 'setCurrentTimeline',
+    'click .weekly': 'setCurrentTimeline',
+    'click .monthly': 'setCurrentTimeline',
+  },
 
   initialize: function(){
     
@@ -18,6 +25,7 @@ app.HealthTrackerView = Backbone.View.extend({
     if(!this.login.isAuthenticated()){
       this.renderLogin();
     } else {
+      this.$timelineContainer = this.$el.find('.ht-timeline-container');
       this.$el.append(this.loader);
     }
   },
@@ -32,7 +40,7 @@ app.HealthTrackerView = Backbone.View.extend({
       model: this.login.currentUser
     });
 
-    console.log(currentUserView.render().el);
+    currentUserView.render();
   },
 
   renderTimeline: function(){
@@ -41,6 +49,29 @@ app.HealthTrackerView = Backbone.View.extend({
     this.userTimeline = new app.UserTimelineView({ parent: this });
     this.userTimeline.$el.append(this.userTimeline.render(this.login.currentUser).el);
   }, 
+
+  setCurrentTimeline: function(timeframe){
+    this.currentTimeline = timeframe;
+    this.showTimeline(this.currentTimeline);
+  },
+
+  showTimeline: function(event){
+    var timeframe = $(event.currentTarget).attr('class');
+    var content;
+    switch(timeframe){
+      case 'daily':
+        content = this.userTimeline.daily.render();
+        break;
+      case 'weekly':
+        content = this.userTimeline.weekly.render();
+        break;
+      case 'monthly':
+        content = this.userTimeline.monthly.render();
+        break;
+    }
+
+    this.$timelineContainer.html(content);
+  },
 
   renderInterface: function(){
     // Insert timeline controls in menu and footer

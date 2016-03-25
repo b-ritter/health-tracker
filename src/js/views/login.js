@@ -20,6 +20,7 @@ app.LoginView = Backbone.View.extend({
 
     if(this.isAuthenticated()){
       this.collection.on('sync', function(){
+        self.currentUser = self.collection.get(self.userAuth.uid).attributes;
         self.trigger('authenticated');
       });
     }
@@ -33,29 +34,23 @@ app.LoginView = Backbone.View.extend({
     return this;
   },
 
-  renderUser: function(user){
+  setUser: function(user){
     this.currentUser = user;
-    
-    var currentUserView = new app.UserView({
-      model: user
-    });
-
-    currentUserView.$el.append(currentUserView.render().el);
-
     this.trigger('authenticated');
   },
+
   addUser: function(){
+
     var self = this,
     username = $('#userName', this.$el).val();
     this.userRef.authAnonymously(function(error, authData) {
-      var userModel = 
-      self.collection.create({
+      var userModel = self.collection.create({
         id: authData.uid,
         username: username,
         provider: authData.provider
       });
 
-      self.listenTo( self.collection, 'add', self.renderUser(userModel) );
+      self.listenTo( self.collection, 'add', self.setUser(userModel) );
 
     });
   },

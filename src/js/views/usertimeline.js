@@ -14,12 +14,12 @@ app.UserTimelineView = Backbone.View.extend({
   initialize: function(options){
 
     this.parent = options.parent;
-    if(!this.parent.login.userAuth){
-      this.currentUserId =  this.parent.login.currentUser.id;
-    } else {
-      this.currentUserId =  this.parent.login.userAuth.uid;
-    }
-    
+
+    // Users can either be logged in with an id from local storage
+    // or they can generate a new id on login
+
+    this.currentUserId =  this.parent.login.currentUser.id;
+
     this.collection = new app.Days( null, { uid: this.currentUserId });
     this.menu = new app.MenuView();
     this.daily = new app.DailyView({ parent: this });
@@ -35,6 +35,15 @@ app.UserTimelineView = Backbone.View.extend({
       self.showTimeline(self.currentTimeline);
     });
     return this;
+  },
+
+  renderUser: function() {
+
+    var currentUserView = new app.UserView({
+      model: this.parent.login.currentUser
+    });
+
+    console.log(currentUserView.render().el);
   },
 
   showTimeline: function(event){

@@ -84,7 +84,7 @@ app.HealthTrackerView = Backbone.View.extend({
     var date = $('.add-day-input').val();
 
     this.userTimeline.collection.add({
-      id: moment(date,'MM-DD-YYYY').format('YYYY-MM-D')
+      id: moment(date,'MM-DD-YYYY').format('YYYY-MM-DD')
     });
   }
 

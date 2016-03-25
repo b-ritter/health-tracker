@@ -14,7 +14,7 @@ app.DailyView = Backbone.View.extend({
 
     this.listenTo(this.parent.collection, 'add', this.renderDay);
     
-    this.listenTo(this.parent.collection, 'reset', this.render);
+    this.listenTo(this.parent.collection, 'all', this.render);
 
   },
 

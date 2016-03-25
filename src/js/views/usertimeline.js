@@ -10,9 +10,16 @@ app.UserTimelineView = Backbone.View.extend({
     'click .weekly': 'setCurrentTimeline',
     'click .monthly': 'setCurrentTimeline',
   },
+
   initialize: function(options){
+
     this.parent = options.parent;
-    this.currentUserId = this.parent.login.userAuth.uid;
+    if(!this.parent.login.userAuth){
+      this.currentUserId =  this.parent.login.currentUser.id;
+    } else {
+      this.currentUserId =  this.parent.login.userAuth.uid;
+    }
+    
     this.collection = new app.Days( null, { uid: this.currentUserId });
     this.menu = new app.MenuView();
     this.daily = new app.DailyView({ parent: this });
@@ -20,18 +27,16 @@ app.UserTimelineView = Backbone.View.extend({
     this.monthly = new app.MonthlyView({ parent: this });
     this.$timelineContaner = this.$el.find('.ht-timeline-container');
   },
-  render: function(userAttributes){
+
+  render: function(){
     var self = this;
-    this.$el.find('#ht-main-menu').append(this.userTemplate({ username: userAttributes.username }));
-    this.$el.find('#ht-main-menu').append(this.menu.render().el);
+    $('#ht-main-menu').append(this.menu.render().el);
     this.collection.on('sync', function(){
       self.showTimeline(self.currentTimeline);
     });
     return this;
   },
-  editUser: function(){
-    console.log('edit user');
-  },
+
   showTimeline: function(event){
     var timeframe = $(event.currentTarget).attr('class');
     var content;

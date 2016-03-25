@@ -31,24 +31,30 @@
     </style>
   </head>
   <body>
-   <main>
-    <div class="row ht-login-form">
-      <!--Container for Login View -->
-    </div>
-    <div class="row ht-user-timeline">
-      <!--Container for User Timeline View -->
+
+    <div class="row ht-menubar">
       <nav>
         <div class="title-bar" data-responsive-toggle="ht-main-menu" data-hide-for="medium">
           <button class="menu-icon" type="button" data-toggle></button>
           <div class="title-bar-title">Health Tracker</div>
         </div>
         <div class="top-bar" id="ht-main-menu">
+          <div class="top-bar-right ht-user">
+          </div>
         </div>
       </nav>
+    </div>
+
+    <!--Container for Login View -->
+    <div class="row ht-login-form">
+      
+    </div>
+    <!--Container for User Timeline View -->
+    <div class="row ht-user-timeline">
       <div class="ht-timeline-container">
       </div>
     </div>
-    </main>
+
     <footer class="footer hide-for-medium">
       
     </footer>
@@ -79,12 +85,9 @@
     </script>
 
     <script type="text/template" class="user-template">
-        <div class="top-bar-right">
-          <ul class="menu">
-            <li>Welcome to health tracker <strong><%= username %></strong> !</li>
-          </ul>
-        </div>
-        
+      <ul class="menu">
+        <li>Welcome to health tracker <strong><%= username %></strong> !</li>
+      </ul>
     </script>
 
     <script type="text/template" class="timeline-template">

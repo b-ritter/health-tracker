@@ -2,10 +2,12 @@ var app = app || {};
 
 app.HealthTrackerView = Backbone.View.extend({
   // The main app view
-  login: new app.LoginView(),
   loader: $($('.loader-template').html()),
+
   initialize: function(){
     
+    this.login = new app.LoginView({ parent: this }); 
+
     this.listenTo(this.login, 'authenticated', this.renderUser);
 
     if(!this.login.isAuthenticated()){
@@ -14,13 +16,15 @@ app.HealthTrackerView = Backbone.View.extend({
       this.$el.append(this.loader);
     }
   },
+
   renderLogin: function(){
     this.login.$el.append(this.login.render().el);
   },
+
   renderUser: function(){
     this.loader.remove();
     this.login.$el.remove();
     this.userTimeline = new app.UserTimelineView({ parent: this });
-    this.userTimeline.$el.append(this.userTimeline.render(this.login.currentUser.attributes.toJSON()).el);
+    // this.userTimeline.$el.append(this.userTimeline.render(this.login.currentUser).el);
   }
 });

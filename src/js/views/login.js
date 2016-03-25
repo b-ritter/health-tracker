@@ -7,24 +7,23 @@ app.LoginView = Backbone.View.extend({
   events: {
     'submit form': 'addUser',
   },
-  initialize: function(){
+  initialize: function(options){
     // Sets the state of the login
     // Returns null if user is not authenticated
     // Catch authenticated users to bypass login screen
-    var self = this,
-    firebaseUrl = 'https://br-health-tracker.firebaseio.com';
+    var self = this;
+    this.parent = options.parent;
+    var firebaseUrl = 'https://br-health-tracker.firebaseio.com';
     this.userRef = new Firebase(firebaseUrl);
 
     this.userAuth = this.userRef.getAuth();
 
     if(this.isAuthenticated()){
       this.collection.on('sync', function(){
-        self.currentUser.set(self.collection.get(self.userAuth.uid));
         self.trigger('authenticated');
       });
     }
 
-    this.listenTo( this.collection, 'add', renderUser );
     //
     // this.userRef.unauth();
 
@@ -33,22 +32,31 @@ app.LoginView = Backbone.View.extend({
     this.$el.append(this.loginTemplate());
     return this;
   },
+
   renderUser: function(user){
-    var currentUser = new app.UserView({
+    this.currentUser = user;
+    
+    var currentUserView = new app.UserView({
       model: user
     });
+
+    currentUserView.$el.append(currentUserView.render().el);
+
+    this.trigger('authenticated');
   },
   addUser: function(){
     var self = this,
     username = $('#userName', this.$el).val();
-    self.userRef.authAnonymously(function(error, authData) {
+    this.userRef.authAnonymously(function(error, authData) {
+      var userModel = 
       self.collection.create({
         id: authData.uid,
         username: username,
         provider: authData.provider
       });
-      self.currentUser.set(self.collection.get(authData.uid));
-      self.trigger('authenticated');
+
+      self.listenTo( self.collection, 'add', self.renderUser(userModel) );
+
     });
   },
   isAuthenticated: function(){

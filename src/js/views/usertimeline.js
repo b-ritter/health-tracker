@@ -32,11 +32,6 @@ app.UserTimelineView = Backbone.View.extend({
   setCurrentTimeline: function(timeframe){
     this.currentTimeline = timeframe;
     this.showTimeline(this.currentTimeline);
-  },
-
-  addDay: function(){
-    this.parent.collection.add({
-      id: moment().format('YYYY-MM-D')
-    });
   }
+  
 });

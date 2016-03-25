@@ -9,6 +9,7 @@ app.HealthTrackerView = Backbone.View.extend({
     'click .daily': 'setCurrentTimeline',
     'click .weekly': 'setCurrentTimeline',
     'click .monthly': 'setCurrentTimeline',
+    'click .add-day': 'addDay'
   },
 
   initialize: function(){
@@ -16,7 +17,7 @@ app.HealthTrackerView = Backbone.View.extend({
     var self = this;
 
     this.login = new app.LoginView({ parent: this }); 
-    
+
     this.$timelineContainer = this.$el.find('.ht-timeline-container');
 
     this.listenTo(this.login, 'authenticated', function(){
@@ -77,6 +78,14 @@ app.HealthTrackerView = Backbone.View.extend({
 
   renderInterface: function(){
     // Insert timeline controls in menu and footer
+  },
+
+  addDay: function(){
+    var date = $('.add-day-input').val();
+
+    this.userTimeline.collection.add({
+      id: moment(date,'MM-DD-YYYY').format('YYYY-MM-D')
+    });
   }
 
 

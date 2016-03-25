@@ -7,12 +7,24 @@
     <title>Health Tracker</title>
     <link rel="stylesheet" href="css/foundation.css" />
     <style>
+      body, html {
+        height: 100vh;
+      }
+
       main {
         height: 90vh;
+        min-height: 90vh;
         overflow: scroll;
       }
 
-      .footer {
+      .ht-user-container {
+        background: black;
+        color: white;
+      }
+
+      footer {
+        position: fixed;
+        width: 100vw;
         height: 10vh;
       }
 
@@ -31,18 +43,19 @@
     </style>
   </head>
   <body class="ht-app">
-
-    <div class="row ht-menubar">
-      <nav>
-        <div class="title-bar" data-responsive-toggle="ht-main-menu" data-hide-for="medium">
-          <button class="menu-icon" type="button" data-toggle></button>
-          <div class="title-bar-title">Health Tracker</div>
-        </div>
-        <div class="top-bar" id="ht-main-menu">
-          <div class="top-bar-right ht-user">
-          </div>
-        </div>
-      </nav>
+    <main>
+    <div class="row expanded text-center ht-user-container">
+      <div class="ht-user"></div>
+    </div>
+    <div class="row expanded ht-menubar">
+      <div class="title-bar" data-responsive-toggle="ht-main-menu" data-hide-for="medium">
+        <button class="menu-icon" type="button" data-toggle></button>
+        <div class="title-bar-title">Health Tracker</div>
+      </div>
+      <div class="top-bar" id="ht-main-menu">
+      </div>
+    </div>
+       
     </div>
 
     <!--Container for Login View -->
@@ -54,8 +67,8 @@
       <div class="ht-timeline-container">
       </div>
     </div>
-
-    <footer class="footer hide-for-medium">
+    </main>
+    <footer class="hide-for-medium">
       
     </footer>
 
@@ -85,9 +98,7 @@
     </script>
 
     <script type="text/template" class="user-template">
-      <ul class="menu">
-        <li>Welcome to health tracker <strong><%= username %></strong> !</li>
-      </ul>
+      <span class="text-center"> Welcome to Health Tracker <strong><%= username %></strong></span>
     </script>
 
     <script type="text/template" class="timeline-template">
@@ -98,33 +109,28 @@
     </script>
 
     <script type="text/template" class="menu-template">
-        <div class="top-bar-left show-for-medium">
+        <div class="top-bar-title show-for-medium">Health Tracker</div>
+        <div class="top-bar-left">
           <ul class="menu ht-menu">
-            <li class="daily"><a href="#">Daily</a></li>
-            <li class="weekly"><a href="#">Weekly</a></li>
-            <li class="monthly"><a href="#">Monthly</a></li>
+            <li class="daily" data-timeframe="daily"><a href="#">Daily</a></li>
+            <li class="weekly" data-timeframe="weekly"><a href="#">Weekly</a></li>
+            <li class="monthly" data-timeframe="monthly"><a href="#">Monthly</a></li>
           </ul>
-      </div>
+        </div>
+        <div class="top-bar-right">
+          <ul class="menu">
+            <li><input type="search" placeholder="Add day"></li>
+            <li><button class="button" type="submit" data-toggle="add-day-input">Add Day<button></li>
+          </ul>
+        </div>
     </script>
   
     <script type="text/template" class="bottom-bar-template">
       <div class="button-group expanded">
-        <button class="button">Daily</button>
-        <button class="button">Weekly</button>
-        <button class="button">Monthly</button>
+        <button class="button daily" data-timeframe="daily">Daily</button>
+        <button class="button weekly" data-timeframe="weekly">Weekly</button>
+        <button class="button monthly" data-timeframe="monthly">Monthly</button>
       </div>
-    </script>
-
-    <script type="text/template" class="daily-template">
-      <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="expanded row">
-            <div class="small-2 medium-4 large-5 columns"></div>
-            <div class="small-8 medium-4 large-2 columns">
-                <button class="button add-day" type="submit">Add Day</button>
-            </div>
-            <div class="small-2 medium-4 large-5 columns"></div>
-          </div>
-      </nav>
     </script>
 
     <script type="text/template" class="day-template">

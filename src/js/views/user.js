@@ -9,7 +9,7 @@ app.UserView = Backbone.View.extend({
 	},
 
 	render: function(){
-		this.$el.html(this.userTemplate(this.model));
+		this.$el.prepend(this.userTemplate(this.model));
 		return this;
 	},
 

@@ -50,13 +50,13 @@ app.HealthTrackerView = Backbone.View.extend({
     this.userTimeline.$el.append(this.userTimeline.render(this.login.currentUser).el);
   }, 
 
-  setCurrentTimeline: function(timeframe){
+  setCurrentTimeline: function(timeframe){  
     this.currentTimeline = timeframe;
     this.showTimeline(this.currentTimeline);
   },
 
   showTimeline: function(event){
-    var timeframe = $(event.currentTarget).attr('class');
+    var timeframe = $(event.currentTarget).data('timeframe');
     var content;
     switch(timeframe){
       case 'daily':

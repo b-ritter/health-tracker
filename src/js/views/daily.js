@@ -2,14 +2,11 @@ var app = app || {};
 
 app.DailyView = Backbone.View.extend({
   el: '.ht-timeline-container',
-  dailyTemplate: _.template($('.daily-template').html()),
   events: {
     'click .add-day': 'addDay'
   },
   initialize: function(options){
     var self = this;
-
-    this.$addDayBtn = this.dailyTemplate();
 
     this.parent = options.parent;
 
@@ -22,7 +19,7 @@ app.DailyView = Backbone.View.extend({
   },
 
   render: function(){
-    this.$el.html(this.$addDayBtn);
+    this.$el.html('');
     this.parent.collection.each(function(day){
       this.renderDay(day);
     }, this);

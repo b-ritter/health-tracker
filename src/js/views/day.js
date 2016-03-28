@@ -18,6 +18,8 @@ app.DayView = Backbone.View.extend({
     
     this.$el.html(this.dayTemplate(this.model.attributes));
 
+    this.$dayData = this.$el.find('.day-controls');
+
     this.$itemInput = this.$el.find('.ht-item');
 
     this.$itemDisplay = this.$el.find('.item-list');
@@ -97,7 +99,14 @@ app.DayView = Backbone.View.extend({
   },
 
   editDay: function(e){
-    console.log(e.currentTarget.checked);
+    // console.log(e.currentTarget.checked);
+    if(e.currentTarget.checked){
+      this.$dayData.addClass('show-for-small');
+      this.$dayData.removeClass('hide');
+    } else {
+      this.$dayData.removeClass('show-for-small');
+      this.$dayData.addClass('hide');
+    }
   },
 
   removeItems: function(){

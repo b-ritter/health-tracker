@@ -37,7 +37,11 @@ app.DayView = Backbone.View.extend({
 
     this.listenTo( this.collection, 'add', this.renderItem );
 
-    this.listenTo( this.collection, 'reset', this.render );
+    this.listenTo( this.collection, 'add', this.updateDay );
+
+    this.listenTo( this.collection, 'remove', this.updateDay );
+
+    // this.listenTo( this.collection, 'reset', this.render );
 
     this.listenTo( this.model, 'destroy', this.removeItems );
 
@@ -65,16 +69,16 @@ app.DayView = Backbone.View.extend({
             url: 'https://api.nutritionix.com/v2/search',
             data: {
               q: request.term,
+              limit: 5,
+              offset: 1,
               appId: 'c14fb9cf',
-              appKey: '3f6a283cc964fd8cc103300670fd3234',
-              exact: true
+              appKey: '3f6a283cc964fd8cc103300670fd3234'
             },
             success: function( data ) {
-       
               var res = [];
 
               _.each(data.results, function( item ){
-                // console.log(item);
+                
                 res.push( { label: item.item_name, value: item.nutrient_value } ) ;
               });
 
@@ -82,8 +86,13 @@ app.DayView = Backbone.View.extend({
             }
           });
         },
-        minLength: 3,
+        minLength: 1,
         select: function( event, ui ) {
+          event.preventDefault();
+          self.$itemInput.attr( 'data-nxid', ui.item.value );
+          self.$itemInput.val( ui.item.label );
+        },
+        focus: function( event, ui ) {
           event.preventDefault();
           self.$itemInput.attr( 'data-nxid', ui.item.value );
           self.$itemInput.val( ui.item.label );
@@ -108,7 +117,8 @@ app.DayView = Backbone.View.extend({
   },
 
   editDay: function(){
-    // console.log(this.$editSwitchInput.prop('checked'));
+    // Toggles the ability to add/delete items
+    // and the whole day itself
     if(this.$editSwitchInput.prop('checked')){
       this.$dayData.addClass('show-for-small');
       this.$dayData.removeClass('hide');
@@ -124,6 +134,15 @@ app.DayView = Backbone.View.extend({
     this.collection.each(function(item){
       item.destroy();
     });
+  },
+
+  updateDay: function() {
+    var self = this;
+    var calcount = 0;
+    this.collection.each(function(item){
+      calcount += +item.get('calories');
+    });
+    // console.log(calcount);
   },
 
   removeDay: function(){

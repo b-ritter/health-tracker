@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Health Tracker</title>
     <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="css/jquery-ui.structure.min.css" />
     <style>
       body, html {
         height: 100vh;
@@ -135,11 +137,27 @@
 
     <script type="text/template" class="day-template">
       <div class="expanded row">
-  
-        <div class="small-10 small-centered medium-4 columns text-center">
-          <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3>
+        <div class="small-8 small-centered columns">
+          <div class="row">
+            <div class="small-10 columns text-center">
+              <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3>
+            </div>
+            <div class="small-2 columns">
+            <div class="switch">
+              <input class="switch-input edit-day" id="edit-day-switch" type="checkbox" name="edit-day-switch">
+              <label class="switch-paddle" for="edit-day-switch">
+                <span class="show-for-sr">Edit Day</span>
+              </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="expanded row">
+        <div class="small-8 small-centered columns text-center">
+        <button class="tiny button remove-day" type="button">Delete Day</button>
           <div class="item-list">
-              <div class="input-group">
+              <div class="input-group ui-widget">
                 <input class="input-group-field ht-item" type="text" placeholder="What did you eat today?"></input>
                 <div class="input-group-button">
                   <div class="input-group-btn">
@@ -203,10 +221,7 @@
 
     <script src="js/app.js"></script>
     <script>
-      $.ajax('https://api.nutritionix.com/v1_1/search/cheddar%20cheese?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=c14fb9cf&appKey=3f6a283cc964fd8cc103300670fd3234', {datatype: 'jsonp'})
-        .done(function(data){
-          console.log(data);
-        });
+
     </script>
   </body>
 </html>

@@ -11,12 +11,9 @@ app.ItemView = Backbone.View.extend({
 		return this;
 	},
 	delete: function(){
-		console.log(this);
 		var self = this;
         this.model.destroy({
           success: function(){
-            console.log('destroyed');
-            //Delete view
             self.remove();
           }
         });

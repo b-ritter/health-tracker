@@ -12,13 +12,22 @@ app.DayView = Backbone.View.extend({
     var self = this;
     
     this.parent = attrs.parent;
-    
 
     this.collection = new app.Items(null, { uid: this.parent.parent.currentUserId, id: this.model.id });
     
     this.$el.html(this.dayTemplate(this.model.attributes));
 
     this.$dayData = this.$el.find('.day-controls');
+
+    this.$editSwitch = this.$el.find('.edit-day');
+
+    this.$editSwitchInput = this.$editSwitch.find('.switch-input');
+
+    this.$editSwitchInput.attr('id', 'day' + this.model.id );
+
+    this.$editSwitchInput.attr('name', 'day' + this.model.id );
+
+    this.$editSwitch.find('.switch-paddle').attr('for', 'day' + this.model.id );
 
     this.$itemInput = this.$el.find('.ht-item');
 
@@ -98,9 +107,9 @@ app.DayView = Backbone.View.extend({
     this.$itemInput.val('');
   },
 
-  editDay: function(e){
-    // console.log(e.currentTarget.checked);
-    if(e.currentTarget.checked){
+  editDay: function(){
+    // console.log(this.$editSwitchInput.prop('checked'));
+    if(this.$editSwitchInput.prop('checked')){
       this.$dayData.addClass('show-for-small');
       this.$dayData.removeClass('hide');
     } else {

@@ -4,18 +4,22 @@ app.DayView = Backbone.View.extend({
   model: app.Day,
   dayTemplate: _.template($('.day-template').html()),
   events: {
-    'click .edit-day': 'editDay',
+    'click .switch-input': 'editDay',
     'click .add-item': 'addItem',
     'click .remove-day': 'removeDay'
   },
   initialize: function(attrs){
     var self = this;
+
+    this.day_settings = this.model.attributes;
+
+    // this.day_settings.editing_on = false;
     
     this.parent = attrs.parent;
 
     this.collection = new app.Items(null, { uid: this.parent.parent.currentUserId, id: this.model.id });
-    
-    this.$el.html(this.dayTemplate(this.model.attributes));
+
+    this.$el.html(this.dayTemplate(this.day_settings));
 
     this.$dayData = this.$el.find('.day-controls');
 
@@ -41,7 +45,7 @@ app.DayView = Backbone.View.extend({
 
     this.listenTo( this.collection, 'remove', this.updateDay );
 
-    // this.listenTo( this.collection, 'reset', this.render );
+    this.listenTo( this.collection, 'reset', this.render );
 
     this.listenTo( this.model, 'destroy', this.removeItems );
 
@@ -86,7 +90,7 @@ app.DayView = Backbone.View.extend({
             }
           });
         },
-        minLength: 1,
+        minLength: 3,
         select: function( event, ui ) {
           event.preventDefault();
           self.$itemInput.attr( 'data-nxid', ui.item.value );
@@ -119,13 +123,21 @@ app.DayView = Backbone.View.extend({
   editDay: function(){
     // Toggles the ability to add/delete items
     // and the whole day itself
-    if(this.$editSwitchInput.prop('checked')){
-      this.$dayData.addClass('show-for-small');
-      this.$dayData.removeClass('hide');
-    } else {
-      this.$dayData.removeClass('show-for-small');
-      this.$dayData.addClass('hide');
-    }
+    // console.log(this.$editSwitchInput.prop('checked')); 
+
+    // this.day_settings.editing_on = this.$editSwitchInput.prop('checked') ? true : false ;
+    // this.day_settings.editing_on = !this.day_settings.editing_on;
+    // this.render();
+
+      
+    // if(this.$editSwitchInput.prop('checked')){
+    //   this.$dayData.addClass('show-for-small');
+    //   this.$dayData.removeClass('hide');
+    // } else {
+    //   this.$dayData.removeClass('show-for-small');
+    //   this.$dayData.addClass('hide');
+    // }
+    
   },
 
   removeItems: function(){
@@ -142,7 +154,9 @@ app.DayView = Backbone.View.extend({
     this.collection.each(function(item){
       calcount += +item.get('calories');
     });
-    // console.log(calcount);
+    this.model.set({
+      calories: calcount
+    });
   },
 
   removeDay: function(){

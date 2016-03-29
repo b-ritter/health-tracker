@@ -1,5 +1,6 @@
 var app = app || {};
 
 app.Day = Backbone.Model.extend({
-	id: ''
+	id: '',
+	calories: 0
 });

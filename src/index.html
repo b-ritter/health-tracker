@@ -143,17 +143,19 @@
               <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3>
             </div>
             <div class="small-2 columns">
-            <div class="switch edit-day">
-              <input class="switch-input" id="edit-day-switch" type="checkbox" name="edit-day-switch">
-              <label class="switch-paddle" for="edit-day-switch">
-                <span class="show-for-sr">Edit Day</span>
-              </label>
+              <!-- TODO: Enable edit mode
+              <div class="switch edit-day">
+                <input class="switch-input" id="edit-day-switch" type="checkbox" name="edit-day-switch">
+                <label class="switch-paddle" for="edit-day-switch">
+                  <span class="show-for-sr">Edit Day</span>
+                </label>
               </div>
+              -->
             </div>
           </div>
         </div>
       </div>
-      <div class="expanded row day-controls hide">
+      <div class="expanded row day-controls">
         <div class="small-8 small-centered columns text-center">
         <button class="tiny button remove-day" type="button">Delete Day</button>
           <div class="item-list">
@@ -167,6 +169,9 @@
               </div>
           </div>
         </div>
+      </div>
+      <div class="expanded row day-controls">
+        <div class="small-8 small-centered columns text-center">Total calories: <%= calories %></div>
       </div>
     </script>
 

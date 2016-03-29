@@ -15,6 +15,8 @@ app.DayView = Backbone.View.extend({
 
     // this.day_settings.editing_on = false;
     
+    this.editing_on = false; 
+    
     this.parent = attrs.parent;
 
     this.collection = new app.Items(null, { uid: this.parent.parent.currentUserId, id: this.model.id });
@@ -129,7 +131,7 @@ app.DayView = Backbone.View.extend({
     // this.day_settings.editing_on = !this.day_settings.editing_on;
     // this.render();
 
-      
+
     // if(this.$editSwitchInput.prop('checked')){
     //   this.$dayData.addClass('show-for-small');
     //   this.$dayData.removeClass('hide');

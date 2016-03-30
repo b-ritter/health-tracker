@@ -140,43 +140,40 @@
         <div class="small-8 small-centered columns">
           <div class="row">
             <div class="small-10 columns text-center">
-              <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3>
+              <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3><button class="tiny button remove-day" type="button">Delete Day</button>
             </div>
             <div class="small-2 columns">
-              <!-- TODO: Enable edit mode
-              <div class="switch edit-day">
-                <input class="switch-input" id="edit-day-switch" type="checkbox" name="edit-day-switch">
-                <label class="switch-paddle" for="edit-day-switch">
-                  <span class="show-for-sr">Edit Day</span>
-                </label>
-              </div>
-              -->
             </div>
           </div>
         </div>
       </div>
-      <div class="expanded row day-controls">
-        <div class="small-8 small-centered columns text-center">
-        <button class="tiny button remove-day" type="button">Delete Day</button>
-          <div class="item-list">
-              <div class="input-group ui-widget">
-                <input class="input-group-field ht-item" type="text" placeholder="What did you eat today?"></input>
-                <div class="input-group-button">
-                  <div class="input-group-btn">
-                    <input type="submit" class="button add-item" value="Add Item"></input>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
+      <div class="expanded row item-list-container">
+        
       </div>
-      <div class="expanded row day-controls">
+      <div class="expanded row">
         <div class="small-8 small-centered columns text-center">Total calories: <%= calories %></div>
       </div>
     </script>
 
+    <script type="text/template" class="item-list-template">
+      <div class="expanded row day-controls">
+        <div class="small-8 small-centered columns text-center">  
+          <div class="item-list">
+              
+          </div>
+          <div class="input-group ui-widget">
+            <input class="input-group-field ht-item" type="text" placeholder="What did you eat today?"></input>
+            <div class="input-group-button">
+              <div class="input-group-btn">
+                <input type="submit" class="button add-item" value="Add Item"></input>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
     <script  type="text/template" class="item-template">
-    
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search for..." style="display:none">
         <div>
@@ -209,6 +206,7 @@
     <script src="js/models/user.js"></script>
     <script src="js/models/day.js"></script>
     <script src="js/models/item.js"></script>
+    <script src="js/models/list.js"></script>
     <script src="js/collections/users.js"></script>
     <script src="js/collections/days.js"></script>
     <script src="js/collections/items.js"></script>
@@ -218,6 +216,7 @@
     <script src="js/views/weekly.js"></script>
     <script src="js/views/monthly.js"></script>
     <script src="js/views/item.js"></script>
+    <script src="js/views/items.js"></script>
     <script src="js/views/menu.js"></script>
     <script src="js/views/login.js"></script>
 

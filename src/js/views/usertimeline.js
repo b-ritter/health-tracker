@@ -14,10 +14,14 @@ app.UserTimelineView = Backbone.View.extend({
 
     this.currentUserId =  this.parent.login.currentUser.id;
 
-    this.collection = new app.Days( null, { uid: this.currentUserId });
+    this.daysCollection = new app.Days( null, { uid: this.currentUserId });
+
     this.daily = new app.DailyView({ parent: this });
+
     this.weekly = new app.WeeklyView({ parent: this });
+
     this.monthly = new app.MonthlyView({ parent: this });
+
     this.menu = new app.MenuView();
     
   },

@@ -42,7 +42,7 @@ app.HealthTrackerView = Backbone.View.extend({
     var currentUserView = new app.UserView({
       model: this.login.currentUser
     });
-    console.log(this.login.currentUser);
+
     currentUserView.render();
   },
 
@@ -83,10 +83,18 @@ app.HealthTrackerView = Backbone.View.extend({
   addDay: function(){
     var date = $('.add-day-input').val();
 
-    this.userTimeline.collection.add({
-      id: moment(date,'MM-DD-YYYY').format('YYYY-MM-DD'),
-      calories: 0
-    });
+    if(date !== ''){
+      var formattedDate = moment(date,'MM-DD-YYYY').format('YYYY-MM-DD');
+      var day_exists = this.userTimeline.daysCollection.get(formattedDate);
+      if(!day_exists){
+        this.userTimeline.daysCollection.create({
+        id: formattedDate,
+        calories: 0
+      });
+      }
+    }
+    
+
   }
 
 

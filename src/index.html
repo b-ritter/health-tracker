@@ -112,7 +112,6 @@
           <ul class="menu ht-menu">
             <li class="daily" data-timeframe="daily"><a href="#">Daily</a></li>
             <li class="weekly" data-timeframe="weekly"><a href="#">Weekly</a></li>
-            <li class="monthly" data-timeframe="monthly"><a href="#">Monthly</a></li>
           </ul>
         </div>
         <div class="top-bar-right">
@@ -127,7 +126,6 @@
       <div class="button-group expanded">
         <button class="button daily" data-timeframe="daily">Daily</button>
         <button class="button weekly" data-timeframe="weekly">Weekly</button>
-        <button class="button monthly" data-timeframe="monthly">Monthly</button>
       </div>
     </script>
 
@@ -136,11 +134,14 @@
         <div class="small-10 small-centered columns">
           <div class="row">
             <div class="small-6 columns text-left">
-              <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3><button class="tiny button remove-day" type="button">Delete Day</button>
+              <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3>
             </div>
-            <div class="small-6 columns text-right">
-              Total calories: <%= calories %>
+            <div class="small-4 columns text-right">
+              <span class="show-for-medium">Total calories: </span><%= calories %>
             </div>
+            <div class="small-2 columns text-right">
+              <button class="tiny button remove-day" type="button">Delete Day</button>
+            </div>          
           </div>
         </div>
       </div>

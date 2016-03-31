@@ -44,6 +44,7 @@ app.LoginView = Backbone.View.extend({
     var self = this,
     username = $('#userName', this.$el).val();
     this.userRef.authAnonymously(function(error, authData) {
+
       var userModel = self.collection.create({
         id: authData.uid,
         username: username,
@@ -54,6 +55,7 @@ app.LoginView = Backbone.View.extend({
 
     });
   },
+
   isAuthenticated: function(){
     if( this.userAuth ){
       return true;

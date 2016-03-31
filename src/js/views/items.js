@@ -31,7 +31,7 @@ app.ItemsView = Backbone.View.extend({
 	        model: item
 	    });
 
-	    this.$el.find('.item-list').prepend( itemView.render().el );
+	    this.$el.find('.item-list').append( itemView.render().el );
 	},
 
 	render: function(){

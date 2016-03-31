@@ -48,17 +48,16 @@
     <main>
     <div class="row expanded text-center ht-user-container">
       <div class="ht-user"></div>
-    </div>
-    <div class="row expanded ht-menubar">
-      <div class="title-bar" data-responsive-toggle="ht-main-menu" data-hide-for="medium">
-        <button class="menu-icon" type="button" data-toggle></button>
-        <div class="title-bar-title">Health Tracker</div>
       </div>
-      <div class="top-bar" id="ht-main-menu">
-        <div class="top-bar-title show-for-medium">Health Tracker</div>
+      <div class="row expanded ht-menubar">
+        <div class="title-bar" data-responsive-toggle="ht-main-menu" data-hide-for="medium">
+          <button class="menu-icon" type="button" data-toggle></button>
+          <div class="title-bar-title">Health Tracker</div>
+        </div>
+        <div class="top-bar" id="ht-main-menu">
+          <div class="top-bar-title show-for-medium">Health Tracker</div>
+        </div>
       </div>
-    </div>
-       
     </div>
 
     <!--Container for Login View -->
@@ -81,22 +80,19 @@
 
     -->
     <script type="text/template" class="login-template">
-      <header class="row">
-        <div class="small-1 columns" ></div>
-        <div class="small-10 columns">
+      <header class="row expanded">
+      
+        <div class="small-10 small-centered columns">
           <h1 class="text-center">Health Tracker</h1>
         </div>
-        <div class="small-1 columns"></div>
       </header>
-      <div class="row">
-        <div class="small-1 columns"></div>
-        <div class="small-10 columns">
+      <div class="row expanded">
+        <div class="small-8 medium-6 small-centered columns">
           <form class="form-signin" >
             <input type="text" id="userName" class="form-control" placeholder="Create User Name" required autofocus>
             <button class="button" type="submit">Create User</button>
           </form>
         </div>
-        <div class="small-1 columns"></div>
       </div>
     </script>
 
@@ -137,12 +133,13 @@
 
     <script type="text/template" class="day-template">
       <div class="expanded row">
-        <div class="small-8 small-centered columns">
+        <div class="small-10 small-centered columns">
           <div class="row">
-            <div class="small-10 columns text-center">
+            <div class="small-6 columns text-left">
               <h3><%= moment(id, 'YYYY-MM-D').format('dddd, MMMM Do') %></h3><button class="tiny button remove-day" type="button">Delete Day</button>
             </div>
-            <div class="small-2 columns">
+            <div class="small-6 columns text-right">
+              Total calories: <%= calories %>
             </div>
           </div>
         </div>
@@ -150,38 +147,44 @@
       <div class="expanded row item-list-container">
         
       </div>
-      <div class="expanded row">
-        <div class="small-8 small-centered columns text-center">Total calories: <%= calories %></div>
-      </div>
     </script>
 
     <script type="text/template" class="item-list-template">
       <div class="expanded row day-controls">
-        <div class="small-8 small-centered columns text-center">  
+        <div class="small-10 small-centered columns text-center">  
           <div class="item-list">
-              
-          </div>
-          <div class="input-group ui-widget">
-            <input class="input-group-field ht-item" type="text" placeholder="What did you eat today?"></input>
-            <div class="input-group-button">
-              <div class="input-group-btn">
-                <input type="submit" class="button add-item" value="Add Item"></input>
-              </div>
+            <div class="row">
+              <div class="small-6 columns text-left">Item</div>
+              <div class="small-3 columns text-left">Calories</div>
+              <div class="small-3 columns"></div>
+              <hr>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="expanded row">
+        <div class="small-10 small-centered medium-6 columns">
+        <div class="input-group ui-widget">
+          <input class="input-group-field ht-item" type="text" placeholder="What did you eat today?"></input>
+          <div class="input-group-button">
+            <div class="input-group-btn">
+              <input type="submit" class="button add-item" value="Add Item"></input>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </script>
 
     <script  type="text/template" class="item-template">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." style="display:none">
-        <div>
-          <span><%= itemName %></span><span> <%= calories %></span><span class="input-group-btn">
-          <button class="tiny button delete" type="button">Delete</button>
-        </span>
+        <div class="row">
+          <div class="small-6 columns text-left"><%= itemName %></div>
+          <div class="small-3 columns text-left"> <%= calories %></div>
+          <div class="small-3 columns text-right">
+            <button class="tiny button delete" type="button">Delete</button>
+          </div>
         </div>
-      </div><!-- /input-group -->
+     
     </script>
 
     <script type="text/template" class="weekly-template">

@@ -39,8 +39,8 @@ app.LoginView = Backbone.View.extend({
     this.trigger('authenticated');
   },
 
-  addUser: function(){
-
+  addUser: function(event){
+    event.preventDefault();
     var self = this,
     username = $('#userName', this.$el).val();
     this.userRef.authAnonymously(function(error, authData) {
@@ -49,9 +49,9 @@ app.LoginView = Backbone.View.extend({
         id: authData.uid,
         username: username,
         provider: authData.provider
-      });
+      }, { wait: true });
 
-      self.listenTo( self.collection, 'add', self.setUser(userModel) );
+      self.listenTo( self.collection, 'sync', self.setUser(userModel) );
 
     });
   },

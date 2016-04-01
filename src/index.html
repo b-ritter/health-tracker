@@ -187,14 +187,15 @@
         </div>
      
     </script>
+  
+    <script type="text/template" class="daily-template">
+      <% if( num_days === 0) print("<p>Please add some days to get started!</p>"); %>
+    </script>
 
     <script type="text/template" class="weekly-template">
-      <p>Weekly View Placeholder</p>
+      <% if( num_days === 0) print("<p>Please add some days to get started!</p>"); %>
     </script>
 
-    <script type="text/template" class="monthly-template">
-      <p>Monthly View Placeholder</p>
-    </script>
     <!--
       js Dependencies
     -->
@@ -218,7 +219,6 @@
     <script src="js/views/user.js"></script>
     <script src="js/views/day.js"></script>
     <script src="js/views/weekly.js"></script>
-    <script src="js/views/monthly.js"></script>
     <script src="js/views/item.js"></script>
     <script src="js/views/items.js"></script>
     <script src="js/views/menu.js"></script>

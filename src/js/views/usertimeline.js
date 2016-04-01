@@ -20,8 +20,6 @@ app.UserTimelineView = Backbone.View.extend({
 
     this.weekly = new app.WeeklyView({ parent: this });
 
-    this.monthly = new app.MonthlyView({ parent: this });
-
     this.menu = new app.MenuView();
     
   },

@@ -2,6 +2,7 @@ var app = app || {};
 
 app.DailyView = Backbone.View.extend({
   el: '.ht-timeline-container',
+  dailyTemplate: _.template($('.daily-template').html()),
   events: {
     'click .add-day': 'addDay'
   },
@@ -20,6 +21,7 @@ app.DailyView = Backbone.View.extend({
 
   render: function(){
     this.$el.html('');
+    this.$el.append(this.dailyTemplate( { num_days: this.parent.daysCollection.length } ));
     this.parent.daysCollection.each(function(day){
       this.renderDay(day);
     }, this);

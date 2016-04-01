@@ -13,8 +13,6 @@ app.DayView = Backbone.View.extend({
 
   initialize: function(attrs){
     var self = this;
-    
-    this.editing_on = false; 
 
     this.parent = attrs.parent;
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  class="no-js" lang="en">
+<html class="no-js" lang="en">
     <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -51,14 +51,13 @@
       </div>
       <div class="row expanded ht-menubar">
         <div class="title-bar" data-responsive-toggle="ht-main-menu" data-hide-for="medium">
-          <button class="menu-icon" type="button" data-toggle></button>
+          <button class="menu-icon" type="button" data-toggle style="text-indent: -3000em">Menu</button>
           <div class="title-bar-title">Health Tracker</div>
         </div>
         <div class="top-bar" id="ht-main-menu">
           <div class="top-bar-title show-for-medium">Health Tracker</div>
         </div>
       </div>
-    </div>
 
     <!--Container for Login View -->
     <div class="row ht-login-form">
@@ -154,7 +153,8 @@
       <div class="expanded row day-controls">
         <div class="small-10 small-centered columns text-center">  
           <div class="item-list">
-            <div class="row">
+
+            <div class="row <% if( num_items === 0) print("hide"); %>" >
               <div class="small-6 columns text-left">Item</div>
               <div class="small-3 columns text-left">Calories</div>
               <div class="small-3 columns"></div>
@@ -228,8 +228,6 @@
     <script src="js/views/healthtracker.js"></script>
 
     <script src="js/app.js"></script>
-    <script>
 
-    </script>
   </body>
 </html>

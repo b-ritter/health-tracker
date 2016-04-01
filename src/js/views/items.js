@@ -35,7 +35,7 @@ app.ItemsView = Backbone.View.extend({
 	},
 
 	render: function(){
-		this.$el.html(this.itemsTemplate());
+		this.$el.html(this.itemsTemplate({ num_items: this.collection.length }));
 		this.$itemInput = this.$el.find('.ht-item');
 	    this.collection.each(function( item ) {
 	        this.renderItem( item );

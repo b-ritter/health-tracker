@@ -68,9 +68,6 @@ app.HealthTrackerView = Backbone.View.extend({
       case 'weekly':
         content = this.userTimeline.weekly.render();
         break;
-      case 'monthly':
-        content = this.userTimeline.monthly.render();
-        break;
     }
 
     this.$timelineContainer.html(content);

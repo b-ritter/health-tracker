@@ -195,7 +195,9 @@
       <% if( num_days === 0) { 
         print("<p>Please add some days to get started!</p>");
       } else {
-        print( years );
+        years.forEach(function(y){
+          print("<div>" + y + "</div>");
+        });
       } %>
      
     </script>

@@ -36,6 +36,7 @@ app.WeeklyView = Backbone.View.extend({
   		// console.log(year);
   		// Logs the data for each year
   		// console.log(weeks_by_year[year]);
+  		
   		// self.renderWeeks(year);
   		years.push(year);
   	}

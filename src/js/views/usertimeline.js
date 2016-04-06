@@ -27,13 +27,7 @@ app.UserTimelineView = Backbone.View.extend({
   render: function(){
     var self = this;
     $('#ht-main-menu').append(this.menu.render().el);
-    
     return this;
-  },
-
-  setCurrentTimeline: function(timeframe){
-    this.currentTimeline = timeframe;
-    this.showTimeline(this.currentTimeline);
   }
   
 });

@@ -8,7 +8,6 @@ app.HealthTrackerView = Backbone.View.extend({
     'click .edit-user': 'editUser',
     'click .daily': 'setCurrentTimeline',
     'click .weekly': 'setCurrentTimeline',
-    'click .monthly': 'setCurrentTimeline',
     'click .add-day': 'addDay'
   },
 
@@ -53,24 +52,21 @@ app.HealthTrackerView = Backbone.View.extend({
     this.userTimeline.$el.append(this.userTimeline.render(this.login.currentUser).el);
   }, 
 
-  setCurrentTimeline: function(timeframe){  
-    this.currentTimeline = timeframe;
+  setCurrentTimeline: function(event){  
+    this.currentTimeline = event;
     this.showTimeline(this.currentTimeline);
   },
 
   showTimeline: function(event){
     var timeframe = $(event.currentTarget).data('timeframe');
-    var content;
     switch(timeframe){
       case 'daily':
-        content = this.userTimeline.daily.render();
+        this.$timelineContainer.html(this.userTimeline.daily.render());
         break;
       case 'weekly':
-        content = this.userTimeline.weekly.render();
+        this.$timelineContainer.html(this.userTimeline.weekly.render());
         break;
-    }
-
-    this.$timelineContainer.html(content);
+    } 
   },
 
   renderInterface: function(){

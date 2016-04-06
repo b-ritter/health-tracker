@@ -7,12 +7,9 @@ app.WeeklyView = Backbone.View.extend({
 
     this.parent.daysCollection.fetch( { reset: true });
 
-    this.listenTo(this.parent.daysCollection, 'add', this.renderDay);
-    
-    this.listenTo(this.parent.daysCollection, 'sync', this.render);
   },
   render: function(){
-
+  
   	var self = this;
   	// First separate dates out into years
 
@@ -52,11 +49,5 @@ app.WeeklyView = Backbone.View.extend({
   	*/
 
     return this.weeklyTemplate({ num_days: this.parent.daysCollection.length, years: weeks_by_year });
-  },
-
-  renderWeeks: function(year){
-  	// console.log(_.keys(year));
-  	// var weekChart = new app.WeekView(week);
-  	// this.$el.append(weekChart.render().el);
   }
 });

@@ -22,13 +22,34 @@ app.WeeklyView = Backbone.View.extend({
   		return day.id.substr(0,4);
   	});
 
-  	// Then group dates by week of year
-  	console.log(weeks_by_year);
   	_.each(days_in_year, function(year, index){
   		weeks_by_year[index] = _.groupBy(year, function(day){
 	  		return moment(day.id,'YYYY-MM-DD').week();
 	  	});
   	});
+
+  	/*
+  	// weeks_by_year structure
+	yearID: {
+		weekID: [ 
+			{ 
+				attributes: {
+					calories: x,
+					id: "YYYY-MM-DD"
+				}
+			},
+			{
+				attributes: {
+					calories: x,
+					id: "YYYY-MM-DD"
+				}
+			}
+		]
+	},
+	yearID: {
+		....
+	}
+  	*/
 
     return this.weeklyTemplate({ num_days: this.parent.daysCollection.length, years: weeks_by_year });
   },

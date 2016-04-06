@@ -18,30 +18,19 @@ app.WeeklyView = Backbone.View.extend({
 
   	var weeks_by_year = {};
 
-  	var years = [];
-
   	var days_in_year = this.parent.daysCollection.groupBy(function(day){
   		return day.id.substr(0,4);
   	});
 
   	// Then group dates by week of year
+  	console.log(weeks_by_year);
   	_.each(days_in_year, function(year, index){
   		weeks_by_year[index] = _.groupBy(year, function(day){
 	  		return moment(day.id,'YYYY-MM-DD').week();
 	  	});
   	});
 
-  	for(var year in weeks_by_year){
-  		// Logs '2015' and '2016'
-  		// console.log(year);
-  		// Logs the data for each year
-  		// console.log(weeks_by_year[year]);
-  		
-  		// self.renderWeeks(year);
-  		years.push(year);
-  	}
-
-    return this.weeklyTemplate({ num_days: this.parent.daysCollection.length, years: years });
+    return this.weeklyTemplate({ num_days: this.parent.daysCollection.length, years: weeks_by_year });
   },
 
   renderWeeks: function(year){

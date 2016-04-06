@@ -195,9 +195,17 @@
       <% if( num_days === 0) { 
         print("<p>Please add some days to get started!</p>");
       } else {
-        years.forEach(function(y){
-          print("<div>" + y + "</div>");
-        });
+        for(var y in years) {
+          print( "<div>" + y + "</div>");
+          for(var w in years[y]){
+            var week = years[y][w];
+            print("<div>");
+            week.forEach(function(day){
+              print("<span>" + day.id + "</span>");
+            });
+            print("</div>"); 
+          }
+        };
       } %>
      
     </script>

@@ -67,7 +67,6 @@ app.HealthTrackerView = Backbone.View.extend({
         this.$timelineContainer.html(this.userTimeline.weekly.render());
         break;
     } 
-    $(document).foundation();
   },
 
   addDay: function(){

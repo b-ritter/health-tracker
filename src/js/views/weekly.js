@@ -59,18 +59,19 @@ app.WeeklyView = Backbone.View.extend({
   	*/
 
     this.$el.html(this.weeklyTemplate({ 
-    	num_days: this.parent.daysCollection.length, 
-    	years: this.weeks_by_year })
-    );
+    	num_days: this.parent.daysCollection.length
+	}));
 
-  	_.each(this.weeks_by_year, function(yearData, index, list){
-  		var $week_container = self.$el.find('.' + index + '-weeks');
-  		// Logs the data for each year
-  		// console.log(yearData);
-  		var weekChart = new app.WeekView(yearData);
-  		console.log(weekChart.render().el);
-  		$week_container.append(weekChart.render().el);
-  	});
+    if( this.parent.daysCollection.length > 0 ){
+
+		var $week_container = self.$el.find( '.weeks' );
+
+	    var weekCharts = new app.WeekView( self.weeks_by_year );
+
+	    $week_container.append(weekCharts.render().el);
+    }
+    
+
 
   	return this.$el;
   }

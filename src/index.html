@@ -200,24 +200,27 @@
             <h2>Weeks</h2>
           </div>
         </div>
-       <%   
-          for(var year in years){ %>
-            <div class="row <%=year%>-weeks">
-              <div class="row">
-                <div class="small-10 columns small-centered">
-                  <%= year %>
-                  <hr>
-                </div>
-              </div>
-            </div>
-          <% }
-      } %>
-     
+        <div class="row weeks">
+        </div>
+      <% } %>
+    </script>
+
+    <script  type="text/template" class="year-template">
+      <div class="row">
+       <div class="small-10 columns small-centered week-container">
+        <%= year %>
+        </div>
+      </div>
     </script>
 
     <script  type="text/template" class="week-template">
-      <div class="small-10 columns small-centered">
-        This year's data
+      <div class="row">
+        <div class="small-10 columns small-centered week-container">
+          <% 
+            print(moment().year( yearIndex ).day('Sunday').week( weekIndex ).format('dddd, MMMM Do') + '—'); 
+            print(moment().year( yearIndex ).day('Saturday').week( weekIndex ).format('dddd, MMMM Do')); 
+          %>
+        </div>
       </div>
     </script>
   

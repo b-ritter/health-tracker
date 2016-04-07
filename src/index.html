@@ -194,18 +194,31 @@
     <script type="text/template" class="weekly-template">
       <% if( num_days === 0) { 
         print("<p>Please add some days to get started!</p>");
-      } else {
-        for(var y in years){
-          print("<div class='year'>" + y + "</div>");
-        }
+      } else { %>
+        <div class="row">
+          <div class="small-10 columns small-centered">
+            <h2>Weeks</h2>
+          </div>
+        </div>
+       <%   
+          for(var year in years){ %>
+            <div class="row <%=year%>-weeks">
+              <div class="row">
+                <div class="small-10 columns small-centered">
+                  <%= year %>
+                  <hr>
+                </div>
+              </div>
+            </div>
+          <% }
       } %>
      
     </script>
 
     <script  type="text/template" class="week-template">
-        <div class="row">
-   
-        </div>
+      <div class="small-10 columns small-centered">
+        This year's data
+      </div>
     </script>
   
 

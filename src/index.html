@@ -107,7 +107,7 @@
     </script>
 
     <script type="text/template" class="menu-template">
-        <div class="top-bar-left">
+        <div class="top-bar-left show-for-medium">
           <ul class="menu ht-menu">
             <li class="daily" data-timeframe="daily"><a href="#">Daily</a></li>
             <li class="weekly" data-timeframe="weekly"><a href="#">Weekly</a></li>
@@ -208,7 +208,16 @@
     <script  type="text/template" class="year-template">
       <div class="row">
        <div class="small-10 columns small-centered week-container">
-        <%= year %>
+          <h3><%= year %></h3>
+          <hr>
+        </div>
+      </div>
+    </script>
+
+    <script  type="text/template" class="chart-template">
+      <div class="row">
+       <div class="small-10 columns small-centered week-container">
+          <%= chart %>
         </div>
       </div>
     </script>

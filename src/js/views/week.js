@@ -36,7 +36,7 @@ app.WeekView = Backbone.View.extend({
 				// Correctly logs the amount of calories in that week
 				// console.log(daysInWeek);
 
-				var margin = {top: 20, right: 20, bottom: 20, left: 20},
+				var margin = {top: 20, right: 20, bottom: 20, left: 60},
 				    width = 700 - margin.left - margin.right,
 				    height = 200 - margin.top - margin.bottom,
 				    CHART_SCALE_FACTOR = 0.75; 
@@ -48,20 +48,24 @@ app.WeekView = Backbone.View.extend({
 					.domain([0, d3.max(daysInWeek)])
 				    .range([height * CHART_SCALE_FACTOR, 0]);
 
-				var xAxis = d3.svg.axis()
-				    .scale(x)
-				    .orient("bottom");
 
 				var yAxis = d3.svg.axis()
 				    .scale(y)
+				    .ticks(5)
+				    .tickSize(1)
 				    .orient("left");
+
+				var days;
 
 				var svg = d3.select(self.el).append('div').attr('class', 'row')
 					.append('div').attr('class', 'small-10 columns small-centered')
 					.append('svg')
 		            .attr('viewBox', '0 0 ' + width + ' ' + height)
 			        .append('g')
-		            .attr('transform', 'translate('+ margin.left +',' + margin.top + ')');
+		            .attr('transform', 'translate('+ margin.left +',' + margin.top + ')')
+		            .append('g')
+		            .attr('class', 'y axis')
+		            .call(yAxis);
 
 				// Number of days in week - 1
 				var point_spacing = width / 6; 
@@ -75,7 +79,7 @@ app.WeekView = Backbone.View.extend({
 					.attr('d', lineFunction(daysInWeek))
 					.attr('stroke', 'blue')
 					.attr('fill', 'none');
-				
+
 			});
 		});
 		

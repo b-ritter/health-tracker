@@ -36,43 +36,52 @@ app.WeekView = Backbone.View.extend({
 				// Correctly logs the amount of calories in that week
 				// console.log(daysInWeek);
 
-				var margin = {top: 20, right: 20, bottom: 20, left: 60},
+				var margin = {top: 20, right: 40, bottom: 20, left: 40},
 				    width = 700 - margin.left - margin.right,
 				    height = 200 - margin.top - margin.bottom,
 				    CHART_SCALE_FACTOR = 0.75; 
 
-				var x = d3.scale.linear()
-				    .range([0, width]);
+				var x = d3.scale.ordinal()
+					.domain(['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'])
+				    .rangePoints([0, width]);
 
 				var y = d3.scale.linear()
 					.domain([0, d3.max(daysInWeek)])
 				    .range([height * CHART_SCALE_FACTOR, 0]);
 
-
 				var yAxis = d3.svg.axis()
 				    .scale(y)
 				    .ticks(5)
 				    .tickSize(1)
-				    .orient("left");
+				    .orient('left');
 
-				var days;
+				var xAxis = d3.svg.axis()
+					.scale(x)
+					.tickSize(1)
+					.orient('bottom');
 
 				var svg = d3.select(self.el).append('div').attr('class', 'row')
-					.append('div').attr('class', 'small-10 columns small-centered')
+					.append('div').attr('class', 'small-9 columns small-centered')
 					.append('svg')
-		            .attr('viewBox', '0 0 ' + width + ' ' + height)
+		            .attr('viewBox', '0 0 ' + ( width + margin.right + margin.left ) + ' ' + height)
 			        .append('g')
-		            .attr('transform', 'translate('+ margin.left +',' + margin.top + ')')
-		            .append('g')
+		            .attr('transform', 'translate('+ margin.left +',' + margin.top + ')');
+		            
+		        svg.append('g')
 		            .attr('class', 'y axis')
 		            .call(yAxis);
+		            
+		        svg.append('g')
+		            .attr('class', 'x axis')
+		            .attr('transform','translate(0, ' + ( height - margin.top - margin.bottom ) + ')')
+		            .call(xAxis);
 
 				// Number of days in week - 1
 				var point_spacing = width / 6; 
 
 				var lineFunction = d3.svg.line()
 					  .x(function(d, i) { return point_spacing * i ; })
-					  .y(function(d) { console.log(y(d)); return y(d); })
+					  .y(function(d) { return y(d); })
 					  .interpolate('linear');
 
 				svg.append('path')

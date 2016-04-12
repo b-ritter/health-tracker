@@ -19,13 +19,13 @@ app.WeeklyView = Backbone.View.extend({
 
   	// Organize the days by year
 	this.days_in_year = this.parent.daysCollection.groupBy(function(day){
-  		return day.id.substr(0,4);
+  		return -1 * day.id.substr(0,4);
   	});
 
 	// Organize the days in each year into weeks
   	_.each(this.days_in_year, function(year, index){
   		self.weeks_by_year[index] = _.groupBy(year, function(day){
-	  		return moment(day.id,'YYYY-MM-DD').week();
+	  		return -1 * moment(day.id,'YYYY-MM-DD').week();
 	  	});
   	});
 

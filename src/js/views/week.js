@@ -61,12 +61,17 @@ app.WeekView = Backbone.View.extend({
 					.orient('bottom');
 
 				var svg = d3.select(self.el).append('div').attr('class', 'row')
-					.append('div').attr('class', 'small-9 columns small-centered')
+					.append('div')
+						.attr('class', 'small-9 columns small-centered')
 					.append('svg')
-		            .attr('viewBox', '0 0 ' + ( width + margin.right + margin.left ) + ' ' + height)
-			        .append('g')
-		            .attr('transform', 'translate('+ margin.left +',' + margin.top + ')');
-		            
+		            	.attr('viewBox', '0 0 ' + ( width + margin.right + margin.left ) + ' ' + height)
+		     		.append('g')
+		            	.attr('transform', 'translate('+ margin.left +',' + margin.top + ')');
+				
+				svg.append('text')
+					.attr('transform', 'translate(' + -margin.left + ')')
+		        	.text('Calories');
+
 		        svg.append('g')
 		            .attr('class', 'y axis')
 		            .call(yAxis);

@@ -34,6 +34,10 @@
         width: 1px;
       }
 
+      text {
+        font-size: .75rem;
+      }
+      
       /* Foundation Medium and up */ 
       @media screen and (min-width: 40em) {
 
@@ -210,12 +214,10 @@
     </script>
 
     <script  type="text/template" class="year-template">
-      <div class="row">
        <div class="small-10 columns small-centered week-container">
-          <h3><%= year %></h3>
+          <h3><%= -1 * year %></h3>
           <hr>
         </div>
-      </div>
     </script>
 
     <script  type="text/template" class="chart-template">
@@ -230,8 +232,8 @@
       <div class="row">
         <div class="small-10 columns small-centered week-container">
           <% 
-            print(moment().year( yearIndex ).day('Sunday').week( weekIndex ).format('dddd, MMMM Do') + '—'); 
-            print(moment().year( yearIndex ).day('Saturday').week( weekIndex ).format('dddd, MMMM Do')); 
+            print(moment().year( yearIndex ).day('Sunday').week( -1 * weekIndex ).format('dddd, MMMM Do') + '—'); 
+            print(moment().year( yearIndex ).day('Saturday').week( -1 * weekIndex ).format('dddd, MMMM Do')); 
           %>
         </div>
       </div>

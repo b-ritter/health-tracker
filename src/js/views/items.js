@@ -56,29 +56,29 @@ app.ItemsView = Backbone.View.extend({
 	},
 	
 	selectItem: function(){
-    var self = this;
-    $( ".ht-item", this.$el).autocomplete({
-        source: function( request, response ) {
-          $.ajax({
-            url: 'https://api.nutritionix.com/v2/search',
-            data: {
-              q: request.term,
-              limit: 5,
-              offset: 1,
-              appId: 'c14fb9cf',
-              appKey: '3f6a283cc964fd8cc103300670fd3234'
-            },
-            success: function( data ) {
-              var res = [];
+	    var self = this;
+	    $( ".ht-item", this.$el).autocomplete({
+	        source: function( request, response ) {
+	          $.ajax({
+	            url: 'https://apibeta.nutritionix.com/v2/autocomplete',
+	            data: {
+	              q: request.term,
+	              appId: 'c14fb9cf',
+	              appKey: '3f6a283cc964fd8cc103300670fd3234'
+	            }
+	        }).done( function( data ) {
 
-              _.each(data.results, function( item ){
-                
-                res.push( { label: item.item_name, value: item.nutrient_value } ) ;
-              });
+	              var res = [];
 
-              response( res );
-            }
-          });
+	              _.each(data, function( item ){
+	                res.push( { label: item.text, value: item.id } ) ;
+	              });
+
+	              response( res );
+	            }
+	         ).fail(function(){
+	         	alert('Oops, something went wrong with Health Tracker. Please try again later.');
+	         });
         },
         minLength: 3,
         select: function( event, ui ) {
@@ -102,11 +102,31 @@ app.ItemsView = Backbone.View.extend({
 
 	addItem: function(){
 	 	var foodItem = this.$itemInput.val();
-	    var calories = this.$itemInput.attr('data-nxid');
-	    this.collection.create({ 
-	      itemName: foodItem, 
-	      calories: calories 
-	    });
+	    var id = this.$itemInput.attr('data-nxid');
+	    if( id === undefined ){
+	    	alert("Sorry, we couldn't find any nutritional information on " + foodItem + ". Please try again." );
+	    } else {
+	    	$.ajax({
+            url: 'https://apibeta.nutritionix.com/v2/item',
+            data: {
+	            resource_id: id,
+	            appId: 'c14fb9cf',
+	            appKey: '3f6a283cc964fd8cc103300670fd3234'
+            }
+	        }).done( function( data ) {
+	        	//TODO: Display a list of search results
+	        	// User clicks on item to add
+	        	
+	        	// console.log(data);
+       //        this.collection.create({ 
+			    // itemName: foodItem, 
+			    // calories: calories 
+			    // });
+            }).fail(function(){
+	         	alert('Oops, something went wrong with Health Tracker. Please try again later.');
+	        });
+		    
+	    }
 	    this.$itemInput.val('');
   }
 

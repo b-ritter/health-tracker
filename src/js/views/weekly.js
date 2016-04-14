@@ -34,9 +34,9 @@ app.WeeklyView = Backbone.View.extend({
   render: function(){
 
   	var self = this;
-  	// First separate dates out into years
+
+  	// Structure of this.weeks_by_year object
   	/*
-  	// this.weeks_by_year structure
 	yearID: {
 		weekID: [ 
 			{ 
@@ -70,8 +70,6 @@ app.WeeklyView = Backbone.View.extend({
 
 	    $week_container.append(weekCharts.render().el);
     }
-    
-
 
   	return this.$el;
   }

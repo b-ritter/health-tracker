@@ -172,25 +172,32 @@
       </div>
       <div class="expanded row">
         <div class="small-10 small-centered medium-6 columns">
-        <div class="input-group ui-widget">
-          <input class="input-group-field ht-item" type="text" placeholder="What did you eat today?"></input>
-          <div class="input-group-button">
-            <div class="input-group-btn">
-              <input type="submit" class="button add-item" value="Add Item"></input>
-            </div>
+          <div class="input-group ui-widget">
+            <input class="input-group-field ht-item" type="text" placeholder="What did you eat today?"></input>
           </div>
         </div>
-        </div>
+      </div>
+      <div class="row search-results">
       </div>
     </script>
+  
+    <script  type="text/template" class="results-template">
+        <div class="row">
+          <div class="small-12 columns">Nutritionix Results</div>
+        </div>
+        <div class="row">
+          <div class="small-12 columns results-container"></div>
+        </div>
+    </script>
 
+    <script  type="text/template" class="result-item-template">
+        <div class="small-12 columns text-left">Foo</div>
+    </script>
+    
     <script  type="text/template" class="item-template">
         <div class="row">
           <div class="small-6 columns text-left"><%= itemName %></div>
           <div class="small-3 columns text-left"> <%= calories %></div>
-          <div class="small-3 columns text-right">
-            <button class="tiny button delete" type="button">Delete</button>
-          </div>
         </div>
     </script>
   
@@ -266,9 +273,10 @@
     <script src="js/views/weekly.js"></script>
     <script src="js/views/item.js"></script>
     <script src="js/views/items.js"></script>
+    <script src="js/views/result.js"></script>
+    <script src="js/views/results.js"></script>
     <script src="js/views/menu.js"></script>
     <script src="js/views/login.js"></script>
-
     <script src="js/views/usertimeline.js"></script>
     <script src="js/views/healthtracker.js"></script>
 

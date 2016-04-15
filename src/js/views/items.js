@@ -75,6 +75,7 @@ app.ItemsView = Backbone.View.extend({
 	              });
 
 	              response( res );
+
 	            }
 	         ).fail(function(){
 	         	alert('Oops, something went wrong with Health Tracker. Please try again later.');
@@ -85,6 +86,7 @@ app.ItemsView = Backbone.View.extend({
           event.preventDefault();
           self.$itemInput.attr( 'data-nxid', ui.item.value );
           self.$itemInput.val( ui.item.label );
+          self.showItems( ui.item.label, ui.item.value );
         },
         focus: function( event, ui ) {
           event.preventDefault();
@@ -100,24 +102,23 @@ app.ItemsView = Backbone.View.extend({
       });
 	},
 
-	addItem: function(){
-	 	var foodItem = this.$itemInput.val();
-	    var id = this.$itemInput.attr('data-nxid');
-	    if( id === undefined ){
-	    	alert("Sorry, we couldn't find any nutritional information on " + foodItem + ". Please try again." );
+	showItems: function(itemName, itemId){
+	 	var self = this;
+	    if( itemId === undefined ){
+	    	alert("Sorry, we couldn't find any nutritional information on " + itemName + ". Please try again." );
 	    } else {
 	    	$.ajax({
-            url: 'https://apibeta.nutritionix.com/v2/item',
+            url: 'https://apibeta.nutritionix.com/v2/search',
             data: {
-	            resource_id: id,
+	            q: itemName,
 	            appId: 'c14fb9cf',
 	            appKey: '3f6a283cc964fd8cc103300670fd3234'
             }
 	        }).done( function( data ) {
 	        	//TODO: Display a list of search results
 	        	// User clicks on item to add
-	        	
-	        	// console.log(data);
+    			self.resultsList = new app.ResultsView();
+	        	console.log(data);
        //        this.collection.create({ 
 			    // itemName: foodItem, 
 			    // calories: calories 
@@ -125,9 +126,13 @@ app.ItemsView = Backbone.View.extend({
             }).fail(function(){
 	         	alert('Oops, something went wrong with Health Tracker. Please try again later.');
 	        });
-		    
 	    }
-	    this.$itemInput.val('');
+	    
+  },
+
+  addItem: function(){
+	// this.$itemInput.attr('data-nxid')
+	// this.$itemInput.val('');
   }
 
 });

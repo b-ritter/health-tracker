@@ -11,6 +11,8 @@ app.ItemsView = Backbone.View.extend({
 		// TODO: Item input should be its own view
 		// and be disposed of when editing is closed
 
+		
+
 		this.parent = settings.parent;
 
 		this.collection = new app.Items(null, { uid: this.model.attributes.uid, id: this.model.id } );
@@ -37,6 +39,7 @@ app.ItemsView = Backbone.View.extend({
 	render: function(){
 		this.$el.html(this.itemsTemplate({ num_items: this.collection.length }));
 		this.$itemInput = this.$el.find('.ht-item');
+		this.$resultsContainer = this.$el.find('.results-container');
 	    this.collection.each(function( item ) {
 	        this.renderItem( item );
 	    }, this );
@@ -107,25 +110,8 @@ app.ItemsView = Backbone.View.extend({
 	    if( itemId === undefined ){
 	    	alert("Sorry, we couldn't find any nutritional information on " + itemName + ". Please try again." );
 	    } else {
-	    	$.ajax({
-            url: 'https://apibeta.nutritionix.com/v2/search',
-            data: {
-	            q: itemName,
-	            appId: 'c14fb9cf',
-	            appKey: '3f6a283cc964fd8cc103300670fd3234'
-            }
-	        }).done( function( data ) {
-	        	//TODO: Display a list of search results
-	        	// User clicks on item to add
-    			self.resultsList = new app.ResultsView();
-	        	console.log(data);
-       //        this.collection.create({ 
-			    // itemName: foodItem, 
-			    // calories: calories 
-			    // });
-            }).fail(function(){
-	         	alert('Oops, something went wrong with Health Tracker. Please try again later.');
-	        });
+	    	self.resultsList = new app.ResultsView();
+	    	self.$resultsContainer.append(self.resultsList.render().el);
 	    }
 	    
   },

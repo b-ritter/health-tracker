@@ -15,6 +15,8 @@ app.ItemsView = Backbone.View.extend({
 
 		this.parent = settings.parent;
 
+		this.resultsList = new app.ResultsView({ parent: this });
+
 		this.collection = new app.Items(null, { uid: this.model.attributes.uid, id: this.model.id } );
 
 		this.collection.fetch({ reset: true });
@@ -40,6 +42,7 @@ app.ItemsView = Backbone.View.extend({
 		this.$el.html(this.itemsTemplate({ num_items: this.collection.length }));
 		this.$itemInput = this.$el.find('.ht-item');
 		this.$resultsContainer = this.$el.find('.results-container');
+		this.$resultsContainer.append(this.resultsList.render().el);
 	    this.collection.each(function( item ) {
 	        this.renderItem( item );
 	    }, this );
@@ -110,8 +113,7 @@ app.ItemsView = Backbone.View.extend({
 	    if( itemId === undefined ){
 	    	alert("Sorry, we couldn't find any nutritional information on " + itemName + ". Please try again." );
 	    } else {
-	    	self.resultsList = new app.ResultsView();
-	    	self.$resultsContainer.append(self.resultsList.render().el);
+	    	self.resultsList.update(itemName);
 	    }
 	    
   },

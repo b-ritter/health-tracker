@@ -5,7 +5,10 @@ var app = app || {};
 app.ResultsView = Backbone.View.extend({
 	class: 'row',
 	resultsLoader: $('.results-loader').html(),
-	initialize: function(){
+	resultsTemplate: _.template($('.results-template').html()),
+	initialize: function(settings){
+		this.results = 0;
+		this.parent = settings.parent;
 		/*
 		$.ajax({
             url: 'https://apibeta.nutritionix.com/v2/search',
@@ -29,7 +32,11 @@ app.ResultsView = Backbone.View.extend({
 	        */
 	},
 	render: function(){
-		this.$el.append(this.resultsLoader);
+		this.$el.html(this.resultsTemplate());
 		return this;
-	}
+	},
+	update: function(searchTerm){
+		this.parent.$resultsContainer.empty();
+		this.parent.$resultsContainer.append('Loading results for...' + searchTerm);
+	},
 });

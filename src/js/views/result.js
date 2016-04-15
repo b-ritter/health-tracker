@@ -6,10 +6,11 @@ var app = app || {};
 app.ResultItemView = Backbone.View.extend({
 	class: 'row',
 	resultItemTemplate: _.template($('.result-item-template').html()),
-	initialize: function(){
-
+	initialize: function(data){
+		this.data = data;
 	},
 	render: function(){
-
+		this.$el.html(this.resultItemTemplate(this.data));
+		return this;
 	}
 });

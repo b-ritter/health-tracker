@@ -193,10 +193,10 @@
 
     <script  type="text/template" class="result-item-template">
         <div class="row">
-          <div class="small-2 columns">TB</div><div class="small-5 columns">Brand Name</div><div class="small-5 columns text-left">Item Name</div>
+          <div class="small-2 columns"><img src="<%= thumbnail %>"></div><div class="small-5 columns"> <%= brand_name %></div><div class="small-5 columns text-left"> <%= item_name %></div>
         </div>
         <div class="row">
-          <div class="small-10 columns text-left">1000 Calories per 1 Serving</div>
+          <div class="small-10 columns text-left"><%= nutrient_value %> Calories per <%= serving_qty %> <%= serving_uom %></div>
         </div>
     </script>
     

@@ -87,7 +87,7 @@ app.ItemsView = Backbone.View.extend({
 	         	alert('Oops, something went wrong with Health Tracker. Please try again later.');
 	         });
         },
-        minLength: 3,
+        minLength: 2,
         select: function( event, ui ) {
           event.preventDefault();
           self.$itemInput.attr( 'data-nxid', ui.item.value );

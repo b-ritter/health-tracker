@@ -4,7 +4,8 @@ var app = app || {};
 // Search results
 app.ResultsView = Backbone.View.extend({
 	class: 'row',
-	resultsLoader: $('.results-loader').html(),
+	resultsLoader: _.template($('.results-loader').html()),
+	noResultsTemplate: $('.no-results-template').html(),
 	resultsTemplate: _.template($('.results-template').html()),
 	initialize: function(settings){
 		this.results = 0;
@@ -17,7 +18,7 @@ app.ResultsView = Backbone.View.extend({
 	update: function(searchTerm){
 		var self = this;
 		this.parent.$resultsContainer.empty();
-		this.parent.$resultsContainer.append('Loading results for...' + searchTerm);
+		this.parent.$resultsContainer.append(this.resultsLoader( { term: searchTerm } ));
 
 		$.ajax({
             url: 'https://apibeta.nutritionix.com/v2/search',
@@ -32,11 +33,14 @@ app.ResultsView = Backbone.View.extend({
 	        	//TODO: Display a list of search results
 	        	// User clicks on item to add
     			self.parent.$resultsContainer.empty();
-    			data.results.forEach(function(resultItem){
-    				var itemView = new app.ResultItemView(resultItem);
-    				self.parent.$resultsContainer.append(itemView.render().el);
-    			});
-
+    			if(data.results.length === 0){
+    				self.parent.$resultsContainer.append(self.noResultsTemplate);
+    			} else {
+    				data.results.forEach(function(resultItem){
+	    				var itemView = new app.ResultItemView(resultItem);
+	    				self.parent.$resultsContainer.append(itemView.render().el);
+	    			});
+    			}
 	        	
 
        //        this.collection.create({ 

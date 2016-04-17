@@ -8,7 +8,9 @@ app.DayView = Backbone.View.extend({
     'click .remove-day': function(){
       this.removeDay();
       this.removeItems();
-    }
+    },
+    'click .edit-day': 'editDay',
+    'click .close-day': 'closeDay'
   },
 
   initialize: function(attrs){
@@ -29,8 +31,7 @@ app.DayView = Backbone.View.extend({
   
 
   render: function() {
-    this.$el.html(this.dayTemplate(this.model.attributes));
-    this.$el.find('.item-list-container').append(this.itemsList.render().el);
+    this.$el.html(this.dayTemplate(_.extend(this.model.attributes, { is_editing: false })));
     return this;
   },
   
@@ -48,6 +49,17 @@ app.DayView = Backbone.View.extend({
   removeItems: function(){
     // console.log(this.itemsList.model);
     this.itemsList.collection.reset();
+  },
+
+  editDay: function(){
+    this.$el.html(this.dayTemplate(_.extend(this.model.attributes, { is_editing: true })));
+    this.$el.find('.item-list-container').append(this.itemsList.render().el);
+  },
+
+  closeDay: function(){
+    this.$el.html(this.dayTemplate(_.extend(this.model.attributes, { is_editing: false })));
   }
+
+
 
 });

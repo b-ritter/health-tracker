@@ -3,15 +3,10 @@ var app = app || {};
 app.ItemsView = Backbone.View.extend({
 	model: app.List,
 	itemsTemplate: _.template($('.item-list-template').html()),
-	events: {
-   	 'click .add-item': 'addItem'
-	},
 
 	initialize: function(settings){
 		// TODO: Item input should be its own view
 		// and be disposed of when editing is closed
-
-		
 
 		this.parent = settings.parent;
 
@@ -28,6 +23,7 @@ app.ItemsView = Backbone.View.extend({
 	    this.listenTo( this.collection, 'remove', this.updateDay );
 
 	    this.listenTo( this.collection, 'reset', this.render );
+
 	},
 
 	renderItem: function( item ) {
@@ -51,14 +47,25 @@ app.ItemsView = Backbone.View.extend({
 	},
 
 	updateDay: function() {
+
 	    var self = this;
 	    var calcount = 0;
+
 	    this.collection.each(function(item){
 	      calcount += +item.get('calories');
 	    });
+
 	    this.parent.model.set({
 	      calories: calcount
 	    });
+
+	    if(this.$resultsContainer){
+	    	this.$resultsContainer.empty();
+	    }
+
+	    if(this.$itemInput){
+	    	this.$itemInput.val('');
+	    }
 	},
 	
 	selectItem: function(){
@@ -115,12 +122,6 @@ app.ItemsView = Backbone.View.extend({
 	    } else {
 	    	self.resultsList.update(itemName);
 	    }
-	    
-  },
-
-  addItem: function(){
-	// this.$itemInput.attr('data-nxid')
-	// this.$itemInput.val('');
   }
 
 });

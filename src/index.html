@@ -145,20 +145,20 @@
               <h4 class="show-for-medium hide-for-large"><%= moment(id, 'YYYY-MM-D').format('ddd, MMMM Do') %></h4>
               <h4 class="hide-for-medium"><%= moment(id, 'YYYY-MM-D').format('M/D/YYYY') %></h4>
             </div>
-            <div class="small-2 medium-4 columns text-center">
-              <h4><%= calories %> <span class="show-for-medium"> Calories</span></h4>
+            <div class="small-3 medium-4 columns text-center">
+              <strong><h4><%= calories %> <span class="show-for-medium"> Calories</span></h4></strong>
             </div>
             
               <% if(!is_editing){ %>
-                <div class="small-4 medium-2 columns text-right">
+                <div class="small-5 medium-4 columns text-right">
                   <button class="tiny button edit-day" type="button">Edit Day</button>
                 </div> 
               <% } else { %>
-               <div class="small-2 medium-1 columns text-right">
-                  <button class="tiny button remove-day" type="button">Delete Day</button>
-                </div> 
-                <div class="small-2 medium-1 columns text-right">
-                  <button class="tiny button close-day secondary" type="button">Close</button>
+               <div class="small-5 medium-4 columns text-right">
+                <div class="button-group tiny expanded">
+                  <button class="button remove-day alert" type="button">Delete</button>
+                  <button class="button close-day secondary" type="button">Close</button>
+                </div>
                 </div> 
               <% } %>
                       
@@ -182,9 +182,8 @@
               </div>
             </div>
             <div class="row <% if( num_items === 0) print("hide"); %>" >
-              <div class="small-6 columns text-left">Item</div>
-              <div class="small-3 columns text-left">Calories</div>
-              <div class="small-3 columns"></div>
+              <div class="small-9 columns text-left">Item</div>
+              <div class="small-3 columns text-right">Calories</div>
               <hr>
             </div>
           </div>
@@ -219,6 +218,13 @@
         <div class="small-1 column"></div>
     </script>
 
+    <script type="text/template" class="health-tracker-fail">
+        <div class="small-1 column"></div>
+        <div class="small-10 small-centered columns">Ooops, something went wrong with Health Tracker. Please try again.</div>
+        <div class="small-1 column"></div>
+    </script>
+
+
     <script  type="text/template" class="result-item-template">
         <div class="small-0 medium-1"></div>
         <div class="small-12 medium-10 small-centered columns">
@@ -245,8 +251,8 @@
     
     <script  type="text/template" class="item-template">
         <div class="row">
-          <div class="small-6 columns text-left"><%= itemName %></div>
-          <div class="small-3 columns text-left"> <%= calories %></div>
+          <div class="small-9 columns text-left"><%= brandName %> <%= itemName %></div>
+          <div class="small-3 columns text-right"> <%= calories %></div>
         </div>
     </script>
   

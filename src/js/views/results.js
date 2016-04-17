@@ -6,6 +6,7 @@ app.ResultsView = Backbone.View.extend({
 	class: 'row',
 	resultsLoader: _.template($('.results-loader').html()),
 	noResultsTemplate: $('.no-results-template').html(),
+	healthTrackerFail: $('.health-tracker-fail').html(),
 	resultsTemplate: _.template($('.results-template').html()),
 	initialize: function(settings){
 		this.results = 0;
@@ -37,19 +38,13 @@ app.ResultsView = Backbone.View.extend({
     				self.parent.$resultsContainer.append(self.noResultsTemplate);
     			} else {
     				data.results.forEach(function(resultItem){
-	    				var itemView = new app.ResultItemView(resultItem);
+	    				var itemView = new app.ResultItemView(resultItem, { parent: self });
 	    				self.parent.$resultsContainer.append(itemView.render().el);
 	    			});
     			}
-	        	
-
-       //        this.collection.create({ 
-			    // itemName: foodItem, 
-			    // calories: calories 
-			    // });
             }).fail(function(){
             	self.parent.$resultsContainer.empty();
-	         	self.parent.$resultsContainer.append('Oops, something went wrong with Health Tracker. Please try again later.');
+	         	self.parent.$resultsContainer.append(self.healthTrackerFail);
 	        });
 
 	},

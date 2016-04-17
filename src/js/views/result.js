@@ -1,16 +1,30 @@
 var app = app || {};
 
-// Sample query string to get individual result
-// https://apibeta.nutritionix.com/v2/item/VRO6INEAn?&appId=c14fb9cf&appKey=3f6a283cc964fd8cc103300670fd3234
-
 app.ResultItemView = Backbone.View.extend({
 	class: 'row',
 	resultItemTemplate: _.template($('.result-item-template').html()),
-	initialize: function(data){
+	events: {
+		'click .add-item': 'addThisItem'
+	},
+	initialize: function(data, settings ){
+		this.parent = settings.parent;
 		this.data = data;
 	},
 	render: function(){
 		this.$el.html(this.resultItemTemplate(this.data));
 		return this;
+	},
+	addThisItem: function(){
+		var self = this;
+
+		this.parent.parent.collection.add({
+			id: self.data.resource_id,
+			brandName: self.data.brand_name,
+			itemName: self.data.item_name,
+			calories: (function(){
+				return self.data.nutrient_value ? self.data.nutrient_value :  0;
+			})()
+		});
+
 	}
 });

@@ -4,7 +4,6 @@ app.DayView = Backbone.View.extend({
   model: app.Day,
   dayTemplate: _.template($('.day-template').html()),
   events: {
-    'click .add-item': 'addItem',
     'click .remove-day': function(){
       this.removeDay();
       this.removeItems();
@@ -18,6 +17,12 @@ app.DayView = Backbone.View.extend({
 
     this.parent = attrs.parent;
 
+    this.is_editing = false;
+
+    this.model.on('all', function(){
+      this.render();
+    }, this);
+
     this.list = new app.List({ 
       uid: self.parent.parent.currentUserId,
       id: self.model.id
@@ -29,12 +34,13 @@ app.DayView = Backbone.View.extend({
     });
   },
   
-
   render: function() {
-    this.$el.html(this.dayTemplate(_.extend(this.model.attributes, { is_editing: false })));
+    this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
+    if(this.is_editing){
+      this.$el.find('.item-list-container').append(this.itemsList.render().el);
+    }
     return this;
   },
-  
 
   removeDay: function(){
     // Removes the day from the database
@@ -47,19 +53,20 @@ app.DayView = Backbone.View.extend({
   },
 
   removeItems: function(){
-    // console.log(this.itemsList.model);
     this.itemsList.collection.reset();
   },
 
   editDay: function(){
-    this.$el.html(this.dayTemplate(_.extend(this.model.attributes, { is_editing: true })));
-    this.$el.find('.item-list-container').append(this.itemsList.render().el);
+    this.is_editing = true;
+    this.render();
   },
 
   closeDay: function(){
-    this.$el.html(this.dayTemplate(_.extend(this.model.attributes, { is_editing: false })));
+    this.is_editing = false;
+    this.render();
+  },
+
+  updateCalories: function(){
+    this.render();
   }
-
-
-
 });

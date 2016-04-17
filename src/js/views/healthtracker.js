@@ -77,8 +77,8 @@ app.HealthTrackerView = Backbone.View.extend({
       var day_exists = this.userTimeline.daysCollection.get(formattedDate);
       if(!day_exists){
         this.userTimeline.daysCollection.create({
-        id: formattedDate,
-        calories: 0
+          id: formattedDate,
+          calories: 0
       });
       }
     }

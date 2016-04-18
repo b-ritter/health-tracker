@@ -16,9 +16,9 @@ app.ItemsView = Backbone.View.extend({
 
 	    this.listenTo( this.collection, 'add', this.renderItem );
 
-	    this.listenTo( this.collection, 'add', this.updateDay );
+	    this.listenTo( this.collection, 'add', this.render );
 
-	    this.listenTo( this.collection, 'remove', this.updateDay );
+	    this.listenTo( this.collection, 'remove', this.render );
 
 	    this.listenTo( this.collection, 'sync', this.render );
 

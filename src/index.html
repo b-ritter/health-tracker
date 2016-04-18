@@ -111,7 +111,9 @@
     </script>
 
     <script type="text/template" class="loader-template">
-      <p>Loading...</p>
+      <div class="small-1 column"></div>
+      <div class="small-10 small-centered columns">Loading items...<img src="css/images/loading.gif"></div>
+      <div class="small-1 column"></div>
     </script>
 
     <script type="text/template" class="day-loader">
@@ -169,7 +171,7 @@
     <script type="text/template" class="calorie-template">
       <strong><h4><%= calories %> <span class="show-for-medium"> Calories</span></h4></strong>
     </script>
-    
+
     <script type="text/template" class="item-list-ui-template">
       <% if(!is_editing){ %>    
          
@@ -262,8 +264,11 @@
     
     <script  type="text/template" class="item-template">
         <div class="row">
-          <div class="small-9 columns text-left"><%= brandName %> <%= itemName %></div>
-          <div class="small-3 columns text-right"> <%= calories %></div>
+          <div class="small-7 columns text-left"><%= brandName %> <%= itemName %></div>
+          <div class="small-2 columns text-right"> <%= calories %></div>
+          <div class="small-3 columns text-right"> 
+            <button class="tiny button alert delete" type="button">Delete</button>
+          </div>
         </div>
     </script>
   

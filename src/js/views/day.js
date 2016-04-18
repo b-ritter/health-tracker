@@ -3,6 +3,7 @@ var app = app || {};
 app.DayView = Backbone.View.extend({
   model: app.Day,
   dayTemplate: _.template($('.day-template').html()),
+  loaderTemplate: $('.loader-template').html(),
   events: {
     'click .remove-day': function(){
       this.removeDay();
@@ -69,13 +70,15 @@ app.DayView = Backbone.View.extend({
 
     this.$uiContainer.html(this.itemUI.render().el);
 
+    this.$itemsContainer.html(this.loaderTemplate);
+
     this.itemsList = new app.ItemsView( { 
       model: this.list, 
       parent: self
     });
 
     this.listenTo(this.itemsList.collection, 'sync', function(){
-      self.$itemsContainer.append(self.itemsList.render().el);
+      self.$itemsContainer.empty().append(self.itemsList.render().el);
     });
 
     this.listenTo(this.itemsList.collection, 'update', function(){

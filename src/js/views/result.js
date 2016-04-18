@@ -18,7 +18,7 @@ app.ResultItemView = Backbone.View.extend({
 		var self = this;
 
 		this.parent.parent.collection.add({
-			id: self.data.resource_id,
+			resourceId: self.data.resource_id,
 			brandName: self.data.brand_name,
 			itemName: self.data.item_name,
 			calories: (function(){

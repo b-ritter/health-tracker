@@ -114,6 +114,12 @@
       <p>Loading...</p>
     </script>
 
+    <script type="text/template" class="day-loader">
+      <div class="small-1 column"></div>
+      <div class="small-10 small-centered columns">Loading tracked days...<img src="css/images/loading.gif"></div>
+      <div class="small-1 column"></div>
+    </script>
+
     <script type="text/template" class="menu-template">
         <div class="top-bar-left show-for-medium">
           <ul class="menu ht-menu">
@@ -145,23 +151,12 @@
               <h4 class="show-for-medium hide-for-large"><%= moment(id, 'YYYY-MM-D').format('ddd, MMMM Do') %></h4>
               <h4 class="hide-for-medium"><%= moment(id, 'YYYY-MM-D').format('M/D/YYYY') %></h4>
             </div>
-            <div class="small-3 medium-4 columns text-center">
-              <strong><h4><%= calories %> <span class="show-for-medium"> Calories</span></h4></strong>
+            <div class="small-3 medium-4 columns text-center calorie-container">
+              
             </div>
-            
-              <% if(!is_editing){ %>
-                <div class="small-5 medium-4 columns text-right">
-                  <button class="tiny button edit-day" type="button">Edit Day</button>
-                </div> 
-              <% } else { %>
-               <div class="small-5 medium-4 columns text-right">
-                <div class="button-group tiny expanded">
-                  <button class="button remove-day alert" type="button">Delete</button>
-                  <button class="button close-day secondary" type="button">Close</button>
-                </div>
-                </div> 
-              <% } %>
-                      
+            <div class="small-5 medium-4 columns text-right item-list-ui">
+            <!-- contains the item list ui controls -->
+            </div>         
           </div>
         </div>
       </div>
@@ -171,6 +166,22 @@
       <hr>
     </script>
 
+    <script type="text/template" class="calorie-template">
+      <strong><h4><%= calories %> <span class="show-for-medium"> Calories</span></h4></strong>
+    </script>
+    
+    <script type="text/template" class="item-list-ui-template">
+      <% if(!is_editing){ %>    
+         
+          <button class="tiny button edit-day" type="button">Edit Day</button>
+        
+      <% } else { %>
+        <div class="button-group tiny expanded text-right">
+          <button class="button remove-day alert" type="button">Delete</button>
+          <button class="button close-day secondary" type="button">Close</button>
+        </div>
+      <% } %>
+    </script>
 
     <script type="text/template" class="item-list-template">
       <div class="expanded row day-controls">
@@ -324,6 +335,8 @@
     <script src="js/views/daily.js"></script>
     <script src="js/views/user.js"></script>
     <script src="js/views/day.js"></script>
+    <script src="js/views/list-ui.js"></script>
+    <script src="js/views/calories.js"></script>
     <script src="js/views/week.js"></script>
     <script src="js/views/weekly.js"></script>
     <script src="js/views/item.js"></script>

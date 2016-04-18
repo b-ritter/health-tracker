@@ -19,26 +19,32 @@ app.DayView = Backbone.View.extend({
 
     this.is_editing = false;
 
-    this.model.on('all', function(){
-      this.render();
-    }, this);
+    // TODO: Get rid of this
+    // this.model.on('all', function(){
+    //   this.render();
+    // }, this);
 
-    this.list = new app.List({ 
+
+   this.list = new app.List({ 
       uid: self.parent.parent.currentUserId,
       id: self.model.id
     });
 
-    this.itemsList = new app.ItemsView( { 
-      model: this.list, 
-      parent: self
-    });
+    // TODO: Make a view for the calorie display of each day
+    // The display will be the sum of all the items
+    // The sum will also be stored in the day object on the server
+    // For initial display purposes
   },
   
   render: function() {
     this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
-    if(this.is_editing){
-      this.$el.find('.item-list-container').append(this.itemsList.render().el);
-    }
+    this.$calorieContainer = this.$el.find('.calorie-container');
+    this.calories = new app.CaloriesView({ parent: this });
+    this.$calorieContainer.html(this.calories.render().el);
+    this.$itemsContainer = this.$el.find('.item-list-container');
+    this.itemUI = new app.ItemListUI({ parent: this });
+    this.$uiContainer = this.$el.find('.item-list-ui');
+    this.$uiContainer.html(this.itemUI.render().el);
     return this;
   },
 
@@ -57,13 +63,41 @@ app.DayView = Backbone.View.extend({
   },
 
   editDay: function(){
-    this.is_editing = true;
-    this.render();
+    var self = this;
+
+    this.itemUI.toggle();
+
+    this.$uiContainer.html(this.itemUI.render().el);
+
+    this.itemsList = new app.ItemsView( { 
+      model: this.list, 
+      parent: self
+    });
+
+    this.listenTo(this.itemsList.collection, 'sync', function(){
+      self.$itemsContainer.append(self.itemsList.render().el);
+    });
+
+    this.listenTo(this.itemsList.collection, 'update', function(){
+      self.$calorieContainer.html(self.calories.renderCalories(this.itemsList.countCalories()).el);
+    });
   },
 
   closeDay: function(){
-    this.is_editing = false;
-    this.render();
+
+    this.itemUI.toggle();
+
+    this.$uiContainer.html(this.itemUI.render().el);
+
+    var calcount = this.itemsList.countCalories();
+
+    this.model.set({
+      calories: calcount
+    });
+
+    this.itemsList.remove();
+
+
   },
 
   updateCalories: function(){

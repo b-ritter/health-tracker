@@ -5,8 +5,6 @@ app.ItemsView = Backbone.View.extend({
 	itemsTemplate: _.template($('.item-list-template').html()),
 
 	initialize: function(settings){
-		// TODO: Item input should be its own view
-		// and be disposed of when editing is closed
 
 		this.parent = settings.parent;
 
@@ -22,7 +20,7 @@ app.ItemsView = Backbone.View.extend({
 
 	    this.listenTo( this.collection, 'remove', this.updateDay );
 
-	    this.listenTo( this.collection, 'reset', this.render );
+	    this.listenTo( this.collection, 'sync', this.render );
 
 	},
 
@@ -49,15 +47,6 @@ app.ItemsView = Backbone.View.extend({
 	updateDay: function() {
 
 	    var self = this;
-	    var calcount = 0;
-
-	    this.collection.each(function(item){
-	      calcount += +item.get('calories');
-	    });
-
-	    this.parent.model.set({
-	      calories: calcount
-	    });
 
 	    if(this.$resultsContainer){
 	    	this.$resultsContainer.empty();
@@ -122,6 +111,15 @@ app.ItemsView = Backbone.View.extend({
 	    } else {
 	    	self.resultsList.update(itemName);
 	    }
+  },
+  countCalories: function(){
+    var calcount = 0;
+
+    this.collection.each(function(item){
+      calcount += +item.get('calories');
+    });
+
+    return calcount;
   }
 
 });

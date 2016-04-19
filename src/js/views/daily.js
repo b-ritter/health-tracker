@@ -14,11 +14,11 @@ app.DailyView = Backbone.View.extend({
 
     this.parent.daysCollection.fetch( { reset: true });
 
-    // this.$el.html(this.dayLoader);
+    this.$el.html(this.dayLoader);
 
     this.listenTo(this.parent.daysCollection, 'add', this.renderDay);
     
-    this.listenTo(this.parent.daysCollection, 'all', this.render);
+    this.listenTo(this.parent.daysCollection, 'sync', this.render);
 
   },
 

@@ -20,26 +20,17 @@ app.DayView = Backbone.View.extend({
 
     this.is_editing = false;
 
-    // TODO: Get rid of this
-    // this.model.on('all', function(){
-    //   this.render();
-    // }, this);
-
-
-   this.list = new app.List({ 
+    this.list = new app.List({ 
       uid: self.parent.parent.currentUserId,
       id: self.model.id
     });
-
-    // TODO: Make a view for the calorie display of each day
-    // The display will be the sum of all the items
-    // The sum will also be stored in the day object on the server
-    // For initial display purposes
   },
   
   render: function() {
     this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
     this.$calorieContainer = this.$el.find('.calorie-container');
+    // TODO: Create a firebase data object for calories in day
+    // The calorie model needs to update independently of the rest of the stuff in the day view
     this.calories = new app.CaloriesView({ parent: this });
     this.$calorieContainer.html(this.calories.render().el);
     this.$itemsContainer = this.$el.find('.item-list-container');
@@ -83,6 +74,7 @@ app.DayView = Backbone.View.extend({
 
     this.listenTo(this.itemsList.collection, 'update', function(){
       self.$calorieContainer.html(self.calories.renderCalories(this.itemsList.countCalories()).el);
+
     });
   },
 
@@ -101,9 +93,5 @@ app.DayView = Backbone.View.extend({
     this.itemsList.remove();
 
 
-  },
-
-  updateCalories: function(){
-    this.render();
   }
 });

@@ -2,7 +2,7 @@ var app = app || {};
 
 app.UserTimelineView = Backbone.View.extend({
   el: '.ht-user-timeline',
-  currentTimeline: 'daily',
+  // currentTimeline: 'daily',
   userTemplate: _.template($('.user-template').html()),
 
   initialize: function(options){
@@ -18,15 +18,12 @@ app.UserTimelineView = Backbone.View.extend({
 
     this.daily = new app.DailyView({ parent: this });
 
-    this.weekly = new app.WeeklyView({ parent: this });
+    this.menu = new app.MenuView({ parent: this });
 
-    this.menu = new app.MenuView();
-    
   },
 
   render: function(){
-    var self = this;
-    $('#ht-main-menu').append(this.menu.render().el);
+    this.menu.render();
     return this;
   }
   

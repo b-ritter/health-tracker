@@ -71,6 +71,6 @@ app.WeeklyView = Backbone.View.extend({
 	    $week_container.append(weekCharts.render().el);
     }
 
-  	return this.$el;
+  	return this;
   }
 });

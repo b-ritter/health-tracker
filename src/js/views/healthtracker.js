@@ -5,10 +5,7 @@ app.HealthTrackerView = Backbone.View.extend({
   el: '.ht-app',
   loader: $($('.loader-template').html()),
   events: {
-    'click .edit-user': 'editUser',
-    'click .daily': 'setCurrentTimeline',
-    'click .weekly': 'setCurrentTimeline',
-    'click .add-day': 'addDay'
+    'click .edit-user': 'editUser'
   },
 
   initialize: function(){
@@ -58,32 +55,16 @@ app.HealthTrackerView = Backbone.View.extend({
   },
 
   showTimeline: function(event){
-    var timeframe = $(event.currentTarget).data('timeframe');
-    switch(timeframe){
-      case 'daily':
-        this.$timelineContainer.html(this.userTimeline.daily.render());
-        break;
-      case 'weekly':
-        this.$timelineContainer.html(this.userTimeline.weekly.render());
-        break;
-    } 
-  },
-
-  addDay: function(){
-    var date = $('.add-day-input').val();
-
-    if(date !== ''){
-      var formattedDate = moment(date,'MM-DD-YYYY').format('YYYY-MM-DD');
-      var day_exists = this.userTimeline.daysCollection.get(formattedDate);
-      if(!day_exists){
-        this.userTimeline.daysCollection.create({
-          id: formattedDate,
-          calories: 0
-      });
-      }
-    }
-    
-
+    // var timeframe = $(event.currentTarget).data('timeframe');
+    // this.$timelineContainer.empty().html(this.userTimeline.render(timeframe));
+    // switch(timeframe){
+    //   case 'daily':
+    //     this.$timelineContainer.html(this.userTimeline.daily.render());
+    //     break;
+    //   case 'weekly':
+    //     this.$timelineContainer.html(this.userTimeline.weekly.render());
+    //     break;
+    // } 
   }
 
 

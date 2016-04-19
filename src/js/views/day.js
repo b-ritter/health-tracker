@@ -24,20 +24,33 @@ app.DayView = Backbone.View.extend({
       uid: self.parent.parent.currentUserId,
       id: self.model.id
     });
+
+    this.calorieTotal = new app.CalorieTotal(null, {
+      uid: self.parent.parent.currentUserId,
+      id: self.model.id
+    });
+    
   },
   
   render: function() {
+    var self = this;
     this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
     this.$calorieContainer = this.$el.find('.calorie-container');
-    // TODO: Create a firebase data object for calories in day
-    // The calorie model needs to update independently of the rest of the stuff in the day view
-    this.calories = new app.CaloriesView({ parent: this });
-    this.$calorieContainer.html(this.calories.render().el);
+    this.listenTo(this.calorieTotal, 'all', function(){
+      self.renderCalorieTotal();
+    });
     this.$itemsContainer = this.$el.find('.item-list-container');
     this.itemUI = new app.ItemListUI({ parent: this });
     this.$uiContainer = this.$el.find('.item-list-ui');
     this.$uiContainer.html(this.itemUI.render().el);
     return this;
+  },
+
+  renderCalorieTotal: function(){
+    this.calories = new app.CaloriesView({
+      model: this.calorieTotal
+    });
+    this.$calorieContainer.html(this.calories.render().el);
   },
 
   removeDay: function(){
@@ -46,6 +59,7 @@ app.DayView = Backbone.View.extend({
       this.model.destroy({
         success: function(){
           self.remove();
+          self.parent.render();
         }
       });
   },
@@ -73,9 +87,11 @@ app.DayView = Backbone.View.extend({
     });
 
     this.listenTo(this.itemsList.collection, 'update', function(){
-      self.$calorieContainer.html(self.calories.renderCalories(this.itemsList.countCalories()).el);
-
+      this.calorieTotal.set({
+        calories: this.itemsList.countCalories()
+      });
     });
+
   },
 
   closeDay: function(){
@@ -86,9 +102,6 @@ app.DayView = Backbone.View.extend({
 
     var calcount = this.itemsList.countCalories();
 
-    this.model.set({
-      calories: calcount
-    });
 
     this.itemsList.remove();
 

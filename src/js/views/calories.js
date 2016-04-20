@@ -10,10 +10,5 @@ app.CaloriesView = Backbone.View.extend({
 	render: function() {
 		this.$el.html(this.calorieTemplate( this.model.attributes ));
 		return this;
-	},
-	
-	renderCalories: function( updatedCalories ) {
-		this.$el.html(this.calorieTemplate( { calories: updatedCalories } ));
-		return this;
 	}
 });

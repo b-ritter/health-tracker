@@ -12,13 +12,25 @@ app.DailyView = Backbone.View.extend({
 
     this.parent = options.parent;
 
-    this.parent.daysCollection.fetch( { reset: true });
+    this.dayViews = [];
+
+    this.parent.daysCollection.fetch( { 
+      reset: true, 
+
+      success: function(collection){
+        collection.each(function(item){
+          self.dayViews.push();
+        });
+      }
+    });
 
     this.$el.html(this.dayLoader);
 
-    this.listenTo(this.parent.daysCollection, 'add', this.renderDay);
+    this.listenTo(this.parent.daysCollection, 'add', this.render);
     
     this.listenTo(this.parent.daysCollection, 'sync', this.render);
+
+
 
   },
 
@@ -28,6 +40,7 @@ app.DailyView = Backbone.View.extend({
       this.renderDay(day);
     }, this);
     this.$el.append(this.dailyTemplate( { num_days: this.parent.daysCollection.length } ));
+    return this;
   },
 
   renderDay: function(day){

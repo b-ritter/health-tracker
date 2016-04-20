@@ -1,7 +1,7 @@
 var app = app || {};
 
 app.MenuView = Backbone.View.extend({
-	el: '#ht-main-menu',
+	el: '.ht-app',
 	menuTemplate: _.template($('.menu-template').html()),
 	bottomBarTemplate: _.template($('.bottom-bar-template').html()),
 	events: {
@@ -11,19 +11,19 @@ app.MenuView = Backbone.View.extend({
 	},
 	initialize: function(options){
 		this.parent = options.parent;
+		this.$topMenuContainer = $('#ht-main-menu');
 	},
 
 	render: function(){
-		this.$el.append(this.menuTemplate());
-		this.$el.find('.add-day-input').datepicker();
-		$('footer').append(this.bottomBarTemplate());
-		// $('.daily').trigger('click');
+		this.$topMenuContainer.append(this.menuTemplate());
+		this.$topMenuContainer.find('.add-day-input').datepicker();
+		this.$el.find('footer').append(this.bottomBarTemplate());
 		return this;
 	},
 
 	showDaily: function(){
 		var self = this;
-		this.parent.$el.empty().append(self.parent.daily.$el);
+		this.parent.$el.empty().append(self.parent.daily.render().el);
 	},
 
 	showWeekly: function(){
@@ -35,22 +35,23 @@ app.MenuView = Backbone.View.extend({
 			});
 			
 		} else {
-			this.parent.$el.empty().append(self.parent.weekly.$el);
+			this.parent.$el.empty().append(self.parent.weekly.render().el);
 		}
 	}, 
 
 	addDay: function(){
-    var date = $('.add-day-input').val();
+	    var date = $('.add-day-input').val();
 
-    if(date !== ''){
-      var formattedDate = moment(date,'MM-DD-YYYY').format('YYYY-MM-DD');
-      var day_exists = this.parent.daysCollection.get(formattedDate);
-      if(!day_exists){
-        this.parent.daysCollection.create({
-          id: formattedDate
-        });
-      }
-    }
+	    if(date !== ''){
+	      var formattedDate = moment(date,'MM-DD-YYYY').format('YYYY-MM-DD');
+	      var day_exists = this.parent.daysCollection.get(formattedDate);
+	      if(!day_exists){
+	        this.parent.daysCollection.create({
+	          id: formattedDate
+	        });
+	        $('.add-day-input').val('');
+	      }
+	    }
     
 
   }

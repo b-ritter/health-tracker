@@ -30,15 +30,28 @@ app.DayView = Backbone.View.extend({
       id: self.model.id
     });
     
+    this.calorieTotal.fetch({
+      success: function(){
+
+        self.calories = new app.CaloriesView({
+          model: self.calorieTotal
+        });
+
+        self.updateCalorieTotal();
+
+        self.calories.listenTo(self.calorieTotal, 'change:calories', function(){
+          console.log(self);
+          self.updateCalorieTotal();
+        });
+      }
+    });
+
   },
   
   render: function() {
     var self = this;
     this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
     this.$calorieContainer = this.$el.find('.calorie-container');
-    this.listenTo(this.calorieTotal, 'all', function(){
-      self.renderCalorieTotal();
-    });
     this.$itemsContainer = this.$el.find('.item-list-container');
     this.itemUI = new app.ItemListUI({ parent: this });
     this.$uiContainer = this.$el.find('.item-list-ui');
@@ -46,22 +59,27 @@ app.DayView = Backbone.View.extend({
     return this;
   },
 
-  renderCalorieTotal: function(){
-    this.calories = new app.CaloriesView({
-      model: this.calorieTotal
-    });
+  updateCalorieTotal: function(){
     this.$calorieContainer.html(this.calories.render().el);
   },
 
   removeDay: function(){
     // Removes the day from the database
     var self = this;
-      this.model.destroy({
-        success: function(){
-          self.remove();
-          self.parent.render();
-        }
-      });
+
+    self.calories.remove();
+    // self.calories.undelegateEvents();
+    // this.calories.model.destroy({
+    //   success: function(){
+        
+    //   }
+    // });
+
+    // this.model.destroy({
+    //   success: function(){
+    //     self.remove();
+    //   }
+    // });
   },
 
   removeItems: function(){
@@ -100,11 +118,7 @@ app.DayView = Backbone.View.extend({
 
     this.$uiContainer.html(this.itemUI.render().el);
 
-    var calcount = this.itemsList.countCalories();
-
-
     this.itemsList.remove();
-
 
   }
 });

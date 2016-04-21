@@ -56,6 +56,15 @@ app.DayView = Backbone.View.extend({
     var self = this;
     this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
     this.$calorieContainer = this.$el.find('.calorie-container');
+    
+    this.calories = new app.CaloriesView({
+      model: this.calorieTotal
+    });
+
+    this.listenTo(this.calorieTotal, 'sync', function(){
+      self.$calorieContainer.append(self.calories.render().el);
+    });
+
     this.$itemsContainer = this.$el.find('.item-list-container');
     this.itemUI = new app.ItemListUI({ parent: this });
     this.$uiContainer = this.$el.find('.item-list-ui');
@@ -109,8 +118,9 @@ app.DayView = Backbone.View.extend({
     });
 
     this.listenTo(this.itemsList.collection, 'update', function(){
+      var total = this.itemsList.countCalories();
       this.calorieTotal.set({
-        calories: this.itemsList.countCalories()
+        calories: total
       });
     });
 

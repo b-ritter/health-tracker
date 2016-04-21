@@ -5,6 +5,8 @@ app.CaloriesView = Backbone.View.extend({
 	calorieTemplate : _.template($('.calorie-template').html()),
 	initialize: function(settings){
 		this.parent = settings.parent;
+
+		this.model.fetch();
 	},
 
 	render: function() {

@@ -59,14 +59,15 @@ app.DayView = Backbone.View.extend({
 
   removeDay: function(){
     // Removes the day from the database
-    var self = this;
 
-    self.remove();
+    // Get rid of the view right away
+    // This could be probelmatic if the models could not be destroyed
+    this.remove();
 
     this.calories.model.destroy();
 
     this.model.destroy();
-    
+
   },
 
   removeItems: function(){

@@ -11,6 +11,7 @@ app.WeeklyView = Backbone.View.extend({
 
     this.weeks_by_year = {};
 
+    // TODO: Sync this to the calorie collection instead of days
   },
 
   update: function(){

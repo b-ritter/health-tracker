@@ -6,10 +6,12 @@ app.ItemView = Backbone.View.extend({
 	events: {
 		'click .delete' : 'delete'
 	},
+	
 	render: function(){
 		this.$el.html(this.itemTemplate(this.model.attributes));
 		return this;
 	},
+
 	delete: function(){
 		var self = this;
         this.model.destroy({

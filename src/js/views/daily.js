@@ -1,7 +1,7 @@
 var app = app || {};
 
 app.DailyView = Backbone.View.extend({
-  class: '.ht-timeline-container',
+  class: '.ht-daily-timeline',
   dailyTemplate: _.template($('.daily-template').html()),
   dayLoader: $('.day-loader').html(),
   events: {
@@ -12,17 +12,18 @@ app.DailyView = Backbone.View.extend({
 
     this.parent = options.parent;
 
-    this.parent.daysCollection.fetch( { reset: true });
+    this.daysCollection = new app.Days( null, { uid: this.parent.currentUserId });
 
   },
 
   render: function(){
     var self = this;
-    this.parent.daysCollection.each(function(day){
+    
+    this.daysCollection.each(function(day){
       self.makeNewDayView(day);
     });
 
-    this.listenTo(this.parent.daysCollection, 'add', function(addedDay){
+    this.listenTo(this.daysCollection, 'add', function(addedDay){
       self.makeNewDayView(addedDay);
     });
 

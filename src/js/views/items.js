@@ -12,8 +12,6 @@ app.ItemsView = Backbone.View.extend({
 
 		this.collection = new app.Items(null, { uid: this.model.attributes.uid, id: this.model.id } );
 
-		this.collection.fetch({ reset: true });
-
 	    this.listenTo( this.collection, 'add', this.renderItem );
 
 	    this.listenTo( this.collection, 'add', this.render );

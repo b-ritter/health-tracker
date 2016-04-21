@@ -22,50 +22,16 @@ app.MenuView = Backbone.View.extend({
 	},
 
 	showDaily: function(){
-		var self = this;
-		// console.log('show daily');
-		// this.parent.$el.html('');
-		if(this.parent.weekly){
-			this.stopListening(this.parent.daysCollection);
-			this.parent.weekly.remove();
-		}
-		this.parent.daily = new app.DailyView({ parent: this.parent });
-		this.listenTo(this.parent.daysCollection, 'sync', function(){
-			self.parent.$el.append(self.parent.daily.render().el);
-		});
-	
+		this.parent.showDaily();
 	},
 
 	showWeekly: function(){
-		var self = this;
-		// console.log('show weekly');
-		// this.parent.$el.html('');
-		if(this.parent.daily){
-			this.stopListening(this.parent.daysCollection);
-			this.parent.daily.remove();
-		}
-		this.parent.weekly = new app.WeeklyView({ parent: this.parent });
-		this.listenTo(this.parent.daysCollection, 'sync', function(){
-			self.parent.$el.append(self.parent.weekly.render().el);
-		});
-			
-	
-	}, 
+		this.parent.showWeekly();
+	},
 
 	addDay: function(){
-	    var date = $('.add-day-input').val();
+		this.parent.addDay();
+	}
 
-	    if(date !== ''){
-	      var formattedDate = moment(date,'MM-DD-YYYY').format('YYYY-MM-DD');
-	      var day_exists = this.parent.daysCollection.get(formattedDate);
-	      if(!day_exists){
-	        this.parent.daysCollection.create({
-	          id: formattedDate
-	        });
-	        $('.add-day-input').val('');
-	      }
-	    }
-    
 
-  }
 });

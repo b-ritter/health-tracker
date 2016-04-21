@@ -6,14 +6,17 @@ app.ResultItemView = Backbone.View.extend({
 	events: {
 		'click .add-item': 'addThisItem'
 	},
+	
 	initialize: function(data, settings ){
 		this.parent = settings.parent;
 		this.data = data;
 	},
+
 	render: function(){
 		this.$el.html(this.resultItemTemplate(this.data));
 		return this;
 	},
+
 	addThisItem: function(){
 		var self = this;
 

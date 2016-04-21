@@ -19,12 +19,19 @@ app.DailyView = Backbone.View.extend({
   render: function(){
     var self = this;
     this.parent.daysCollection.each(function(day){
-      var newDay = new app.DayView( { model: day, parent: self } );
-      self.$el.append(newDay.render().el);
+      self.makeNewDayView(day);
     });
-    // console.log('foo');
-    // this.$el.append(this.dailyTemplate( { num_days: this.parent.daysCollection.length } ));
+
+    this.listenTo(this.parent.daysCollection, 'add', function(addedDay){
+      self.makeNewDayView(addedDay);
+    });
+
     return this;
+  }, 
+
+  makeNewDayView: function(day){
+    var newDay = new app.DayView( { model: day, parent: this } );
+    this.$el.append(newDay.render().el);
   }
 
 });

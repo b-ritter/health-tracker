@@ -68,7 +68,10 @@ app.DayView = Backbone.View.extend({
       this.calories.model.destroy(),
       this.model.destroy()).done(function(){
         self.remove();
-      });
+      }).fail(function(){
+        alert('There was a problem deleting this day. Please refresh your broweser and try again if necessary.');
+        }
+      );
   },
 
   removeItems: function(){

@@ -31,6 +31,10 @@ app.UserTimelineView = Backbone.View.extend({
       this.stopListening(this.daily);
       this.daily.remove();
     }
+    if(this.weekly){
+      this.stopListening(this.weekly);
+      this.weekly.remove();
+    }
     this.$el.empty();
     this.daily = new app.DailyView({ parent: this });
     this.listenToOnce(this.daily.daysCollection, 'sync', function(){
@@ -40,9 +44,17 @@ app.UserTimelineView = Backbone.View.extend({
 
   showWeekly: function(){
     var self = this;
+    if(this.weekly){
+      this.stopListening(this.weekly);
+      this.weekly.remove();
+    }
+    if(this.daily){
+      this.stopListening(this.daily);
+      this.daily.remove();
+    }
     this.$el.empty();
     this.weekly = new app.WeeklyView({ parent: this });
-    this.listenTo(this.weekly.calorieTotals, 'sync', function(){
+    this.listenToOnce(this.weekly.calorieTotals, 'sync', function(){
       self.$el.append(self.weekly.render().el);
     });
   }, 

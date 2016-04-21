@@ -33,12 +33,12 @@ app.WeeklyView = Backbone.View.extend({
   		return -1 * day.id.substr(0,4);
   	});
 
-	// // Organize the days in each year into weeks
- //  	_.each(this.days_in_year, function(year, index){
- //  		self.weeks_by_year[index] = _.groupBy(year, function(day){
-	//   		return -1 * moment(day.id,'YYYY-MM-DD').week();
-	//   	});
- //  	});
+	// Organize the days in each year into weeks
+  	_.each(this.days_in_year, function(year, index){
+  		self.weeks_by_year[index] = _.groupBy(year, function(day){
+	  		return -1 * moment(day.id,'YYYY-MM-DD').week();
+	  	});
+  	});
 
   },
 

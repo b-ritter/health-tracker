@@ -30,25 +30,6 @@ app.DayView = Backbone.View.extend({
       uid: self.parent.parent.currentUserId,
       id: self.model.id
     });
-    
-    // this.calorieTotal.fetch({
-    //   success: function(){
-
-    //     self.calories = new app.CaloriesView({
-    //       model: self.calorieTotal
-    //     });
-
-    //     self.updateCalorieTotal();
-
-    //     // self.calories.listenTo(self.parent.parent.daysCollection, 'update', function(){
-    //     //   self.updateCalorieTotal();
-    //     // });
-
-    //     self.calories.listenTo(self.calorieTotal, 'change:calories', function(){
-    //       self.updateCalorieTotal();
-    //     });
-    //   }
-    // });
 
   },
 
@@ -56,7 +37,7 @@ app.DayView = Backbone.View.extend({
     var self = this;
     this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
     this.$calorieContainer = this.$el.find('.calorie-container');
-    
+
     this.calories = new app.CaloriesView({
       model: this.calorieTotal
     });
@@ -80,19 +61,12 @@ app.DayView = Backbone.View.extend({
     // Removes the day from the database
     var self = this;
 
-    // self.calories.remove();
-    // self.calories.undelegateEvents();
-    // this.calories.model.destroy({
-    //   success: function(){
-        
-    //   }
-    // });
+    self.remove();
 
-    // this.model.destroy({
-    //   success: function(){
-    //     self.remove();
-    //   }
-    // });
+    this.calories.model.destroy();
+
+    this.model.destroy();
+    
   },
 
   removeItems: function(){

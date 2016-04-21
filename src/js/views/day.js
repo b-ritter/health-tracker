@@ -20,6 +20,8 @@ app.DayView = Backbone.View.extend({
 
     this.is_editing = false;
 
+    this.itemUI = new app.ItemListUI({ parent: this });
+
     this.list = new app.List({ 
       uid: self.parent.parent.currentUserId,
       id: self.model.id
@@ -39,21 +41,24 @@ app.DayView = Backbone.View.extend({
 
         self.updateCalorieTotal();
 
+        // self.calories.listenTo(self.parent.parent.daysCollection, 'update', function(){
+        //   self.updateCalorieTotal();
+        // });
+
         self.calories.listenTo(self.calorieTotal, 'change:calories', function(){
-          console.log(self);
           self.updateCalorieTotal();
         });
       }
     });
 
   },
-  
+
   render: function() {
     var self = this;
     this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
     this.$calorieContainer = this.$el.find('.calorie-container');
+    console.log(this.itemUI);
     this.$itemsContainer = this.$el.find('.item-list-container');
-    this.itemUI = new app.ItemListUI({ parent: this });
     this.$uiContainer = this.$el.find('.item-list-ui');
     this.$uiContainer.html(this.itemUI.render().el);
     return this;
@@ -67,7 +72,7 @@ app.DayView = Backbone.View.extend({
     // Removes the day from the database
     var self = this;
 
-    self.calories.remove();
+    // self.calories.remove();
     // self.calories.undelegateEvents();
     // this.calories.model.destroy({
     //   success: function(){

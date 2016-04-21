@@ -15,37 +15,34 @@ app.DailyView = Backbone.View.extend({
     this.dayViews = [];
 
     this.parent.daysCollection.fetch( { 
-      reset: true, 
-
+      reset: true,
       success: function(collection){
-        collection.each(function(item){
-          self.dayViews.push();
+        collection.forEach(function(day){
+          self.dayViews.push(new app.DayView( { model: day, parent: self } ));
         });
+
+        self.listenTo(self.parent.daysCollection, 'add', function(day){
+          self.dayViews.push(new app.DayView( { model: day, parent: self } ));
+          self.render();
+        });
+
+        self.render();
       }
     });
 
     this.$el.html(this.dayLoader);
-
-    this.listenTo(this.parent.daysCollection, 'add', this.render);
     
-    this.listenTo(this.parent.daysCollection, 'sync', this.render);
-
-
+    // this.listenTo(this.parent.daysCollection, 'sync', this.render);
 
   },
 
   render: function(){
     this.$el.html('');
-    this.parent.daysCollection.each(function(day){
-      this.renderDay(day);
+    this.dayViews.forEach(function(day){
+      this.$el.append(day.render().el);
     }, this);
-    this.$el.append(this.dailyTemplate( { num_days: this.parent.daysCollection.length } ));
+    // this.$el.append(this.dailyTemplate( { num_days: this.parent.daysCollection.length } ));
     return this;
-  },
-
-  renderDay: function(day){
-    var dayView = new app.DayView( { model: day, parent: this } );
-    this.$el.append(dayView.render().el);
   }
 
 });

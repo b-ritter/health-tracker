@@ -20,7 +20,6 @@ app.DayView = Backbone.View.extend({
 
     this.is_editing = false;
 
-    this.itemUI = new app.ItemListUI({ parent: this });
 
     this.list = new app.List({ 
       uid: self.parent.parent.currentUserId,
@@ -32,24 +31,24 @@ app.DayView = Backbone.View.extend({
       id: self.model.id
     });
     
-    this.calorieTotal.fetch({
-      success: function(){
+    // this.calorieTotal.fetch({
+    //   success: function(){
 
-        self.calories = new app.CaloriesView({
-          model: self.calorieTotal
-        });
+    //     self.calories = new app.CaloriesView({
+    //       model: self.calorieTotal
+    //     });
 
-        self.updateCalorieTotal();
+    //     self.updateCalorieTotal();
 
-        // self.calories.listenTo(self.parent.parent.daysCollection, 'update', function(){
-        //   self.updateCalorieTotal();
-        // });
+    //     // self.calories.listenTo(self.parent.parent.daysCollection, 'update', function(){
+    //     //   self.updateCalorieTotal();
+    //     // });
 
-        self.calories.listenTo(self.calorieTotal, 'change:calories', function(){
-          self.updateCalorieTotal();
-        });
-      }
-    });
+    //     self.calories.listenTo(self.calorieTotal, 'change:calories', function(){
+    //       self.updateCalorieTotal();
+    //     });
+    //   }
+    // });
 
   },
 
@@ -57,8 +56,8 @@ app.DayView = Backbone.View.extend({
     var self = this;
     this.$el.html(this.dayTemplate(_.extend({ is_editing: this.is_editing }, this.model.attributes )));
     this.$calorieContainer = this.$el.find('.calorie-container');
-    console.log(this.itemUI);
     this.$itemsContainer = this.$el.find('.item-list-container');
+    this.itemUI = new app.ItemListUI({ parent: this });
     this.$uiContainer = this.$el.find('.item-list-ui');
     this.$uiContainer.html(this.itemUI.render().el);
     return this;

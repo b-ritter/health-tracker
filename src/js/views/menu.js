@@ -23,20 +23,28 @@ app.MenuView = Backbone.View.extend({
 
 	showDaily: function(){
 		var self = this;
-		this.parent.$el.empty().append(self.parent.daily.render().el);
+		this.parent.$el.empty();
+		if(this.parent.weekly){
+			this.parent.weekly.remove();
+		}
+		this.parent.weekly = new app.DailyView({ parent: this.parent });
+		this.listenTo(this.parent.daysCollection, 'sync', function(){
+			self.parent.$el.append(self.parent.daily.render().el);
+		});
 	},
 
 	showWeekly: function(){
 		var self = this;
-		if(!this.parent.weekly){
-			this.parent.weekly = new app.WeeklyView({ parent: this.parent });
-			this.listenTo(this.parent.daysCollection, 'sync', function(){
-				self.parent.$el.empty().append(self.parent.weekly.render().el);
-			});
-			
-		} else {
-			this.parent.$el.empty().append(self.parent.weekly.render().el);
+		this.parent.$el.empty();
+		if(this.parent.daily){
+			this.parent.daily.remove();
 		}
+		this.parent.weekly = new app.WeeklyView({ parent: this.parent });
+		this.listenTo(this.parent.daysCollection, 'sync', function(){
+			self.parent.$el.append(self.parent.weekly.render().el);
+		});
+			
+	
 	}, 
 
 	addDay: function(){

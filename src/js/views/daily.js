@@ -14,30 +14,30 @@ app.DailyView = Backbone.View.extend({
 
     this.dayViews = [];
 
-    this.parent.daysCollection.fetch( { 
-      reset: true,
-      success: function(collection){
-        collection.forEach(function(day){
-          self.dayViews.push(new app.DayView( { model: day, parent: self } ));
-        });
+    // this.parent.daysCollection.fetch( { 
+    //   reset: true,
+    //   success: function(collection){
+    //     collection.forEach(function(day){
+    //       self.dayViews.push(new app.DayView( { model: day, parent: self } ));
+    //     });
 
-        self.listenTo(self.parent.daysCollection, 'add', function(day){
-          self.dayViews.push(new app.DayView( { model: day, parent: self } ));
-          self.render();
-        });
+    //     self.listenTo(self.parent.daysCollection, 'add', function(day){
+    //       self.dayViews.push(new app.DayView( { model: day, parent: self } ));
+    //       self.render();
+    //     });
 
-        self.render();
-      }
-    });
+    //     self.render();
+    //   }
+    // });
 
-    this.$el.html(this.dayLoader);
+    // this.$el.html(this.dayLoader);
     
     // this.listenTo(this.parent.daysCollection, 'sync', this.render);
 
   },
 
   render: function(){
-    this.$el.html('');
+    this.$el.empty();
     this.dayViews.forEach(function(day){
       this.$el.append(day.render().el);
     }, this);

@@ -7,7 +7,8 @@ activity.
 ## Installation
 Fork or download the repo [here at GitHub](https://github.com/b-ritter/health-tracker).
 
-Open index.html in a browser and search for the foods you have eaten today.
+Open index.html in a browser, create an anyonymous user account and search for the foods 
+you have eaten today.
 
 ### Your Health Tracker Account
 If you have not logged-in already, Health Tracker will ask you to choose a user

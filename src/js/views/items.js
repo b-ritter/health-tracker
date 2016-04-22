@@ -1,5 +1,8 @@
 var app = app || {};
 
+/** @description Displays tracked items and provides a form to search for new ones
+*	@constructor
+*/
 app.ItemsView = Backbone.View.extend({
 	model: app.List,
 	itemsTemplate: _.template($('.item-list-template').html()),
@@ -56,6 +59,8 @@ app.ItemsView = Backbone.View.extend({
 	},
 	
 	selectItem: function(){
+		// Makes ajax request for user-friendly search terms
+		// The result of this query is used as a full Nutritionix search
 	    var self = this;
 	    $( ".ht-item", this.$el).autocomplete({
 	        source: function( request, response ) {
@@ -103,6 +108,7 @@ app.ItemsView = Backbone.View.extend({
 	},
 
 	showItems: function(itemName, itemId){
+		// Initiates new nutritionix ajax search
 	 	var self = this;
 	    if( itemId === undefined ){
 	    	alert("Sorry, we couldn't find any nutritional information on " + itemName + ". Please try again." );

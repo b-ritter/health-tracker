@@ -52,8 +52,11 @@ app.HealthTrackerView = Backbone.View.extend({
   },
 
   renderTimeline: function(){
+    // Puts the timeline into the DOM
     this.loader.remove();
     this.login.$el.remove();
+    // The user timeline view kicks off several other views
+    // See usertimeline.js
     this.userTimeline = new app.UserTimelineView({ parent: this });
     this.$userTimelineContainer = $('.ht-user-timeline');
     this.$userTimelineContainer.append(this.userTimeline.render(this.login.currentUser).el);

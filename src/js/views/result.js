@@ -1,5 +1,9 @@
 var app = app || {};
 
+/** @description The individual result. The user can click to add it to the list
+*	@constructor
+*/
+
 app.ResultItemView = Backbone.View.extend({
 	class: 'row',
 	resultItemTemplate: _.template($('.result-item-template').html()),
@@ -25,7 +29,7 @@ app.ResultItemView = Backbone.View.extend({
 			brandName: self.data.brand_name,
 			itemName: self.data.item_name,
 			calories: (function(){
-				return self.data.nutrient_value ? self.data.nutrient_value :  0;
+				return self.data.nutrient_value ? Math.round(self.data.nutrient_value) :  0;
 			})()
 		});
 

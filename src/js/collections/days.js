@@ -1,5 +1,8 @@
 var app = app || {};
 
+/** @description All the days being tracked
+*	@constructor
+*/
 app.Days = Backbone.Firebase.Collection.extend({
   model: app.Day,
   comparator: function(day){

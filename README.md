@@ -7,6 +7,8 @@ activity.
 ## Installation
 Fork or download the repo [here at GitHub](https://github.com/b-ritter/health-tracker).
 
+See the project in action [here on GitHub pages](https://b-ritter.github.io/health-tracker)
+
 Open index.html in a browser and search for the foods you have eaten today.
 
 ### Your Health Tracker Account
@@ -36,16 +38,41 @@ Timelines
 |
 |---UserID 1
 |   |----Day 1 (Full Date)
+|   |----Day 2
+|
+|---UserID 2
+|   |----Day 1 (Full Date)
+|   |----Day 2
+|
+Lists
+|
+|---UserID 1
+|   |----Day 1 (Full Date)
 |   |   |----Food Item
 |   |   |----Food Item
 |   |   |----Food Item
 |   |----Day 2
 |
 |---UserID 2
-    |----Day 1 (Full Date)
-    |    |----Food Item
-    |    |----Food Item
-    |    |----Food Item
-    |----Day 2}</pre>
+|   |----Day 1 (Full Date)
+|   |    |----Food Item
+|   |    |----Food Item
+|   |    |----Food Item
+|   |----Day 2
+|
+Calorie Totals
+|
+|---UserID 1
+|   |----Day 1 (Full Date)
+|   |   |----Calorie total
+|   |----Day 2
+|   |   |----Calorie total
+|
+|---UserID 2
+|   |----Day 1 (Full Date)
+|   |   |----Calorie total
+|   |----Day 2
+|   |   |----Calorie total
+</pre>
 
 Thus for each user, a list of food items ordered by day is stored.

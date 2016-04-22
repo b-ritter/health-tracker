@@ -1,15 +1,21 @@
 var app = app || {};
 
+/** @description Makes charts out of weekly data  
+*	@constructor
+*/
+
 app.WeekView = Backbone.View.extend({
 	model: app.Week,
 	className: 'row',
 	weekTemplate: _.template($('.week-template').html()),
 	yearTemplate: _.template($('.year-template').html()),
 	chartTemplate: _.template($('.chart-template').html()),
+
 	initialize: function(data){
 		// Logs the data by week
 		this.data = data;
 	},
+
 	render: function(){
 		// Iterate through the weeks in the year, building a d3 chart for each
 		var self = this;
@@ -32,9 +38,6 @@ app.WeekView = Backbone.View.extend({
 					var day_of_week = moment(day.id, 'YYYY-MM-DD').format('d');
 					daysInWeek[day_of_week] = day.attributes.calories;
 				});
-			
-				// Correctly logs the amount of calories in that week
-				// console.log(daysInWeek);
 
 				var margin = {top: 20, right: 40, bottom: 20, left: 40},
 				    width = 700 - margin.left - margin.right,

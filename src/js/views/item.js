@@ -1,5 +1,9 @@
 var app = app || {};
 
+/** @description This is an item that the user has tracked
+*	@constructor
+*/
+
 app.ItemView = Backbone.View.extend({
 	model: app.Item,
 	itemTemplate: _.template($('.item-template').html()),

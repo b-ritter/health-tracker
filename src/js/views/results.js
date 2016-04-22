@@ -1,7 +1,9 @@
 var app = app || {};
 
-// Results will maintain a temporary collection of 
-// Search results
+/** @description Results will maintain a temporary collection of search results
+* 	@constructor 
+*/
+
 app.ResultsView = Backbone.View.extend({
 	class: 'row',
 	resultsLoader: _.template($('.results-loader').html()),
@@ -20,6 +22,8 @@ app.ResultsView = Backbone.View.extend({
 	},
 
 	update: function(searchTerm){
+		// Builds and displays a list of items matching the
+		// search term
 		var self = this;
 		this.parent.$resultsContainer.empty();
 		this.parent.$resultsContainer.append(this.resultsLoader( { term: searchTerm } ));
@@ -44,6 +48,7 @@ app.ResultsView = Backbone.View.extend({
 	    				self.parent.$resultsContainer.append(itemView.render().el);
 	    			});
     			}
+    			
             }).fail(function(){
             	self.parent.$resultsContainer.empty();
 	         	self.parent.$resultsContainer.append(self.healthTrackerFail);

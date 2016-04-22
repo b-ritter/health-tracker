@@ -1,7 +1,13 @@
 var app = app || {};
 
+/**
+* @description The main Health Tracker app view
+* @constructor
+*
+*/
+
 app.HealthTrackerView = Backbone.View.extend({
-  // The main app view
+  // Bind to the body element
   el: '.ht-app',
   loader: $($('.loader-template').html()),
   events: {
@@ -12,29 +18,32 @@ app.HealthTrackerView = Backbone.View.extend({
     
     var self = this;
 
+    // The login view
     this.login = new app.LoginView({ parent: this }); 
 
-    this.$timelineContainer = this.$el.find('.ht-timeline-container');
-
+    // 'authenticated' is a custom event fired by login view
     this.listenTo(this.login, 'authenticated', function(){
+      // When the user is authenticated, render the user's
+      // timeline and username
       self.renderTimeline();
       self.renderUser();
     });
 
     if(!this.login.isAuthenticated()){
+      // If the user isn't authenticated, render the form
+      // to sign them up
       this.renderLogin();
     } else {
-      
       this.$el.append(this.loader);
     }
   },
 
   renderLogin: function(){
+    // Puts the login template into the DOM
     this.login.$el.append(this.login.render().el);
   },
 
   renderUser: function() {
-
     var currentUserView = new app.UserView({
       model: this.login.currentUser
     });
@@ -48,25 +57,6 @@ app.HealthTrackerView = Backbone.View.extend({
     this.userTimeline = new app.UserTimelineView({ parent: this });
     this.$userTimelineContainer = $('.ht-user-timeline');
     this.$userTimelineContainer.append(this.userTimeline.render(this.login.currentUser).el);
-  }, 
-
-  setCurrentTimeline: function(event){  
-    this.currentTimeline = event;
-    this.showTimeline(this.currentTimeline);
-  },
-
-  showTimeline: function(event){
-    // var timeframe = $(event.currentTarget).data('timeframe');
-    // this.$timelineContainer.empty().html(this.userTimeline.render(timeframe));
-    // switch(timeframe){
-    //   case 'daily':
-    //     this.$timelineContainer.html(this.userTimeline.daily.render());
-    //     break;
-    //   case 'weekly':
-    //     this.$timelineContainer.html(this.userTimeline.weekly.render());
-    //     break;
-    // } 
   }
-
 
 });

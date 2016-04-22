@@ -7,8 +7,6 @@ activity.
 ## Installation
 Fork or download the repo [here at GitHub](https://github.com/b-ritter/health-tracker).
 
-See the project in action [here on GitHub pages](https://b-ritter.github.io/health-tracker)
-
 Open index.html in a browser and search for the foods you have eaten today.
 
 ### Your Health Tracker Account
